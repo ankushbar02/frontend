@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
+import Read from "./components/Read/Read";
+import Update from "./components/Update/Update";
+import Navbar from "./components/Navbar";
+import Login from "./components/Login/Login";
+// import Create from "./components/Create/Create";
+import SignUp from "./components/Login/SignUp";
+import WrongPage from "./components/WrongPage";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App ">
+  
+      <CookiesProvider>
+        <BrowserRouter>
+          <Navbar />
+
+          <Routes>
+            <Route exact path="/" element={<Login />}></Route>
+            <Route exact path="/readnotes" element={<Read />}></Route>
+            <Route exact path="/signup" element={<SignUp />} /> 
+            <Route exact path="/:id" element={<Update />}></Route>
+            <Route path="*" element={<WrongPage />} />
+          </Routes>
+        </BrowserRouter>
+      </CookiesProvider>
     </div>
   );
 }
