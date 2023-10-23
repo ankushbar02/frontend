@@ -18,7 +18,7 @@ function Login() {
     }
   }, [cookies, navigate]);
 
-  console.log(document.cookie);
+  console.log(cookies.jwt);
 
   async function handleSubmit(e) {
     e.preventDefault();
