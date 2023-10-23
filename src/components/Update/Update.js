@@ -26,8 +26,11 @@ export default function Update() {
 
   const { id } = useParams();
   const getSingleData = async () => {
-    const response = await fetch(`${env.BACKEND_WEB}` + `/${id}`, {
+    const response = await fetch(`${env.BACKEND_WEB}/${id}`, {
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      }, 
     });
     const result = await response.json();
     if (response.ok) {
