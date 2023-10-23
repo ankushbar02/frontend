@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Create from "../Create/Create";
 import Draggable from "react-draggable";
 import "./Read.css";
-import env from "react-dotenv"
+import env from "react-dotenv";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 export default function Read() {
@@ -18,7 +18,7 @@ export default function Read() {
 
   async function getData() {
     const _id = { id };
-    const response = await fetch(`${env.BACKEND_WEB}`+"/", {
+    const response = await fetch(`${env.BACKEND_WEB}` + "/", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -35,7 +35,7 @@ export default function Read() {
   }
 
   const handleDelete = async (id) => {
-    const response = await fetch(`${env.BACKEND_WEB}`+`/${id}`, {
+    const response = await fetch(`${env.BACKEND_WEB}` + `/${id}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -60,27 +60,38 @@ export default function Read() {
 
   useEffect(() => {
     const verifyUser = async () => {
-      console.log(cookies.jwt);
+      // Check if the "jwt" cookie exists
       if (!cookies.jwt) {
+        // Redirect to the login page or any other appropriate action
         navigate("/");
       } else {
-        const response = await fetch(`${env.BACKEND_WEB}`, {
-          method: "POST",
-          credentials: "include",
-        });
-        const result = await response.json();
-        if (result.status) {
-          setuserName(result.user);
-          setid(result.id);
-          getData();
-        } else {
-          removeCookie();
-          navigate("/");
+        try {
+          const response = await fetch(`${env.BACKEND_WEB}`, {
+            method: "POST",
+            credentials: "include",
+          });
+          const result = await response.json();
+
+          if (response.ok && result.status) {
+           
+            setuserName(result.user);
+            setid(result.id);
+            getData(); 
+          } else {
+          
+            removeCookie(); 
+            navigate("/"); 
+          }
+        } catch (error) {
+          console.error("Error:", error);
+         
         }
       }
     };
+
     verifyUser();
-  }, [cookies, navigate, removeCookie]);
+  }, [cookies, navigate, removeCookie, setUserName, setId, getData]);
+
   // console.log(visible);
   useEffect(() => {
     getData();
@@ -166,7 +177,7 @@ export default function Read() {
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
           {data?.map((ele) => (
-            <Draggable >
+            <Draggable>
               <div key={ele._id} className="col  ">
                 <div
                   style={{ backgroundColor: "#FFD31D" }}
