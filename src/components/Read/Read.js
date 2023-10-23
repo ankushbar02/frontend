@@ -94,7 +94,7 @@ export default function Read() {
 
   return (
     <div className="">
-      {error && <div class="alert alert-danger fixed-bottom">{error}</div>}
+      {error && <div className="alert alert-danger fixed-bottom">{error}</div>}
 
       <div className="container px-4 py-5" id="featured-3">
         {/* {visible && <Create />} */}
@@ -141,7 +141,7 @@ export default function Read() {
         </div>
         <div className="d-flex  mb-4 border-bottom justify-content-between">
           <h2 className=" ">Notes</h2>
-          <div class="dropdown-center">
+          <div className="dropdown-center">
             <button
               className="btn btn-secondary dropdown-toggle"
               type="button"
@@ -189,7 +189,7 @@ export default function Read() {
                           className="btn btn-sm btn-outline-secondary"
                           to={`/${ele._id}`}
                         >
-                          <span class="material-symbols-outlined fs-6">
+                          <span className="material-symbols-outlined fs-6">
                             edit
                           </span>
                         </Link>
@@ -199,7 +199,7 @@ export default function Read() {
                           className="btn btn-sm   text-danger btn-outline-secondary"
                           onClick={() => handleDelete(ele._id)}
                         >
-                          <span class="material-symbols-outlined fs-6">
+                          <span className="material-symbols-outlined fs-6">
                             delete
                           </span>
                         </button>
@@ -222,7 +222,7 @@ export default function Read() {
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
           >
-            <span class="material-symbols-outlined">add</span>
+            <span className="material-symbols-outlined">add</span>
           </button>
         </div>
       </div>
