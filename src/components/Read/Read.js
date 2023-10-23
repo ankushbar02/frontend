@@ -59,8 +59,10 @@ export default function Read() {
   };
 
   useEffect(() => {
+    console.log(cookies.jwt);
     const verifyUser = async () => {
       // Check if the "jwt" cookie exists
+    
       if (!cookies.jwt) {
         // Redirect to the login page or any other appropriate action
         navigate("/");
@@ -177,8 +179,8 @@ export default function Read() {
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
           {data?.map((ele) => (
-            <Draggable>
-              <div key={ele._id} className="col  ">
+            <Draggable key={ele._id}>
+              <div  className="col  ">
                 <div
                   style={{ backgroundColor: "#FFD31D" }}
                   className="shadow-lg p-3 rounded-3 mb-2"
