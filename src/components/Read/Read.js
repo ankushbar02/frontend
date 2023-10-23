@@ -60,7 +60,7 @@ export default function Read() {
 
   useEffect(() => {
     const verifyUser = async () => {
-      console.log(document.cookie);
+      console.log(cookies.jwt);
       if (!cookies.jwt) {
         navigate("/");
       } else {
