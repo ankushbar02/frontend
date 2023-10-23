@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 export default function Read() {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
+  const [cookies, removeCookie] = useCookies(["jwt"]);
 
   const [userName, setuserName] = useState("");
  
@@ -62,8 +62,8 @@ export default function Read() {
   useEffect(() => {
     
     const verifyUser = async () => {
-      const cookie=await cookies.jwt;
-      if (!cookie) {
+      console.log(cookies.jwt);
+      if (!cookies.jwt) {
         navigate("/login");
       } else {
         const response = await fetch(`${env.BACKEND_WEB}`, {

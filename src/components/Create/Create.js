@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import env from "react-dotenv"
+import env from "react-dotenv";
 import { useCookies } from "react-cookie";
 const defaultStyle = {
   display: "block",
@@ -20,9 +20,8 @@ export default function Create(params) {
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
 
-  useEffect(async() => {
-    const cookie=await cookies.jwt;
-    if (!cookie) {
+  useEffect(() => {
+    if (!cookies.jwt) {
       navigate("/");
     }
   }, [cookies, navigate]);
@@ -41,7 +40,7 @@ export default function Create(params) {
     e.preventDefault();
     const data = { tittle, note };
     // console.log(JSON.stringify(data));
-    const response = await fetch(`${env.BACKEND_WEB}`+"/createnote", {
+    const response = await fetch(`${env.BACKEND_WEB}/createnote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

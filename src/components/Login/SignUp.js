@@ -11,12 +11,11 @@ function SignUp() {
   // console.log(userName, password);
 
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
+  const [cookies] = useCookies(["jwt"]);
  
  
-  useEffect(async() => {
-    const cookie=await cookies.jwt;
-    if (cookie) {
+  useEffect(() => {
+    if (cookies.jwt) {
       navigate("/readnotes");
     }
   }, [cookies, navigate]);
@@ -25,7 +24,7 @@ function SignUp() {
     e.preventDefault();
     const data = { userName, password };
     // console.log(JSON.stringify(data));
-    const response = await fetch(`${env.BACKEND_WEB}`+`/signup`, {
+    const response = await fetch(`${env.BACKEND_WEB}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

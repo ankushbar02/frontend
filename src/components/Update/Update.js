@@ -30,7 +30,7 @@ export default function Update() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-      }, 
+      },
     });
     const result = await response.json();
     if (response.ok) {
@@ -40,9 +40,8 @@ export default function Update() {
   };
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
-  useEffect(async() => {
-    const cookie=await cookies.jwt;
-    if (!cookie) {
+  useEffect(() => {
+    if (!cookies.jwt) {
       navigate("/");
     }
   }, [cookies, navigate]);
@@ -55,7 +54,7 @@ export default function Update() {
     e.preventDefault();
     const data = { tittle, note };
     // console.log(JSON.stringify(data));
-    const response = await fetch(`${env.BACKEND_WEB}` + `/${id}`, {
+    const response = await fetch(`${env.BACKEND_WEB}/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

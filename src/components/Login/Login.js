@@ -9,16 +9,16 @@ function Login() {
   const [error, setError] = useState("");
   // console.log(userName, password);
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
+  const [cookies] = useCookies(["jwt"]);
 
-  useEffect(async() => {
-    const cookie=await cookies.jwt;
-    if (cookie) {
+  useEffect(() => {
+    
+    if (cookies.jwt) {
       navigate("/readnotes");
     }
   }, [cookies, navigate]);
 
- 
+  console.log(cookies.jwt);
 
   async function handleSubmit(e) {
     e.preventDefault();
