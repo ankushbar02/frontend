@@ -44,7 +44,7 @@ function Login() {
     if (!result.errors) {
       setuserName("");
       setpassword("");
-      console.log("logedin");
+      // console.log("logedin");
       navigate("/readnotes");
     }
   }
