@@ -18,12 +18,12 @@ function Login() {
     }
   }, [cookies, navigate]);
 
-  // console.log(document.cookie);
+  console.log(document.cookie);
 
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { userName, password };
-    const response = await fetch(`${env.BACKEND_WEB}`+"/login", {
+    const response = await fetch(`${env.BACKEND_WEB}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

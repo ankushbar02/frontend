@@ -5,7 +5,7 @@ import Read from "./components/Read/Read";
 import Update from "./components/Update/Update";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login/Login";
-// import Create from "./components/Create/Create";
+
 import SignUp from "./components/Login/SignUp";
 import WrongPage from "./components/WrongPage";
 function App() {
