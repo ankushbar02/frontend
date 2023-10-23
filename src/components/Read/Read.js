@@ -62,36 +62,23 @@ export default function Read() {
   useEffect(() => {
     
     const verifyUser = async () => {
-      // Check if the "jwt" cookie exists
-    // console.log(cookies.jwt);
+      console.log(cookies.jwt);
       if (!cookies.jwt) {
-        // Redirect to the login page or any other appropriate action
-        navigate("/");
+        navigate("/login");
       } else {
-        try {
-          const response = await fetch(`${env.BACKEND_WEB}`, {
-            method: "POST",
-            credentials: "include",
-          });
-          const result = await response.json();
-
-          if (response.ok && result.status) {
-           
-            setuserName(result.user);
-            
-            getData(); 
-          } else {
-          
-            removeCookie(); 
-            navigate("/"); 
-          }
-        } catch (error) {
-          console.error("Error:", error);
-         
+        const response = await fetch(`${env.BACKEND_WEB}`, {
+          method: "POST",
+          credentials: "include",
+        });
+        const result = await response.json();
+        if (result.status) {
+          setuserName(result.user);
+        } else {
+          removeCookie();
+          navigate("/");
         }
       }
     };
-
     verifyUser();
   }, [cookies, navigate, removeCookie, setuserName]);
 
