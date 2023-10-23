@@ -48,7 +48,7 @@ export default function Update() {
 
   useEffect(() => {
     getSingleData();
-  }, []);
+  }, [getSingleData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
