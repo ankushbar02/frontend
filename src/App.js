@@ -15,7 +15,6 @@ function App() {
       <CookiesProvider>
         <BrowserRouter>
           <Navbar />
-
           <Routes>
             <Route exact path="/" element={<Login />}></Route>
             <Route exact path="/readnotes" element={<Read />}></Route>
