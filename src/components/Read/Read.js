@@ -90,7 +90,7 @@ export default function Read() {
     };
 
     verifyUser();
-  }, [cookies, navigate, removeCookie, setUserName, setId, getData]);
+  }, [cookies, navigate, removeCookie, setuserName, setid, getData]);
 
   // console.log(visible);
   useEffect(() => {
