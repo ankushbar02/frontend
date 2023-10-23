@@ -11,14 +11,14 @@ function Login() {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
 
-  useEffect(() => {
-    
-    if (cookies.jwt) {
+  useEffect(async() => {
+    const cookie=await cookies.jwt;
+    if (cookie) {
       navigate("/readnotes");
     }
   }, [cookies, navigate]);
 
-  console.log(cookies.jwt);
+ 
 
   async function handleSubmit(e) {
     e.preventDefault();

@@ -12,8 +12,11 @@ function SignUp() {
 
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
-  useEffect(() => {
-    if (cookies.jwt) {
+ 
+ 
+  useEffect(async() => {
+    const cookie=await cookies.jwt;
+    if (cookie) {
       navigate("/readnotes");
     }
   }, [cookies, navigate]);

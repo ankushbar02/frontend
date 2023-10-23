@@ -62,8 +62,8 @@ export default function Read() {
   useEffect(() => {
     
     const verifyUser = async () => {
-      console.log(await cookies.jwt);
-      if (!cookies.jwt) {
+      const cookie=await cookies.jwt;
+      if (!cookie) {
         navigate("/login");
       } else {
         const response = await fetch(`${env.BACKEND_WEB}`, {

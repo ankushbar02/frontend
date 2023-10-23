@@ -40,8 +40,9 @@ export default function Update() {
   };
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
-  useEffect(() => {
-    if (!cookies.jwt) {
+  useEffect(async() => {
+    const cookie=await cookies.jwt;
+    if (!cookie) {
       navigate("/");
     }
   }, [cookies, navigate]);

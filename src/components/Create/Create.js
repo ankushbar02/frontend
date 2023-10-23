@@ -20,8 +20,9 @@ export default function Create(params) {
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
 
-  useEffect(() => {
-    if (!cookies.jwt) {
+  useEffect(async() => {
+    const cookie=await cookies.jwt;
+    if (!cookie) {
       navigate("/");
     }
   }, [cookies, navigate]);
