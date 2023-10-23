@@ -9,7 +9,7 @@ function Login() {
   const [error, setError] = useState("");
   // console.log(userName, password);
   const navigate = useNavigate();
-  const [cookies] = useCookies(["jwt"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
 
   useEffect(() => {
     

@@ -11,12 +11,12 @@ function SignUp() {
   // console.log(userName, password);
 
   const navigate = useNavigate();
-  const [cookies] = useCookies(["jwt"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
   useEffect(() => {
     if (cookies.jwt) {
       navigate("/readnotes");
     }
-  }, [cookies.jwt, navigate]);
+  }, [cookies, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
