@@ -10,7 +10,8 @@ function Login() {
   // console.log(userName, password);
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
-
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 2);
   useEffect(() => {
     
     if (cookies.jwt) {
@@ -44,6 +45,8 @@ function Login() {
     if (!result.errors) {
       setuserName("");
       setpassword("");
+      console.log(result.token);
+      document.cookie=`jwt=${result.token}; expires=${expirationDate.toUTCString()}`
       // console.log("logedin");
       navigate("/readnotes");
     }

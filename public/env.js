@@ -1,10 +1,10 @@
 window.env = {
   "ALLUSERSPROFILE": "C:\\ProgramData",
   "APPDATA": "C:\\Users\\ankush\\AppData\\Roaming",
-  "BACKEND_WEB": "https://stickybackend-6p5k.onrender.com",
+  "BACKEND_WEB": "http://localhost:4000",
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "133322418720698906",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_9080_QJDMWRDMGXZNASAA",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_10380_ZQEWKMHSXUVJMTMH",
   "COLOR": "1",
   "COLORTERM": "truecolor",
   "CommonProgramFiles": "C:\\Program Files\\Common Files",
