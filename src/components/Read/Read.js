@@ -79,7 +79,7 @@ useEffect(() => {
     }
   };
   verifyUser();
-}, [cookies, navigate, removeCookie]);
+}, []);
 
   useEffect(() => {
     getData();
