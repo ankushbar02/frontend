@@ -89,7 +89,7 @@ export default function Read() {
     if (cookies.jwt) {
       verifyUser();
     }
-  }, [document.cookie]);
+  }, [cookies.jwt]);
 
   useEffect(() => {
     getData();
