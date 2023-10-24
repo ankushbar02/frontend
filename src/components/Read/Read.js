@@ -88,7 +88,9 @@ export default function Read() {
 
   const logOut = () => {
     removeCookie("jwt");
-    // console.log("outside");
+    var Cookies = document.cookie.split(';');
+    for (var i = 0; i < Cookies.length; i++)
+    document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
     navigate("/");
   };
 

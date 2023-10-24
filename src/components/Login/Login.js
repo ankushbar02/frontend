@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import env from "react-dotenv"
+import env from "react-dotenv";
 function Login() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
   const [error, setError] = useState("");
-  
+
   // console.log(userName, password);
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
-  const maxAge = 3 * 24 * 60 * 60;
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 2);
   // console.log(env.BACKEND_WEB);
   useEffect(() => {
-    
     if (cookies.jwt) {
       navigate("/readnotes");
     }
   }, [cookies, navigate]);
- 
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,7 +26,7 @@ function Login() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      }, 
+      },
       credentials: "include",
       body: JSON.stringify(data),
     });
@@ -35,25 +34,28 @@ function Login() {
 
     if (result.errors) {
       const { email, password } = result.errors;
-      if (email){setError(email)
+      if (email) {
+        setError(email);
         setTimeout(() => {
           navigate("/signup");
-        }, 2000);} 
-      else if (password) setError(password);
+        }, 2000);
+      } else if (password) setError(password);
     }
     if (!result.errors) {
       setuserName("");
       setpassword("");
-      // console.log(result.token);
-      document.cookie=`jwt=${result.token}; maxAge=${maxAge*1000};samesite=none;secure=true; httpOnly=false;`
-      // console.log("logedin");
+      document.cookie = `jwt=${
+        result.token
+      }; expires=${expirationDate.toUTCString()};`;
       navigate("/readnotes");
     }
   }
 
-  // console.log(userName, password);
   return (
-    <div style={{height:"90vh"}} className=" container  d-flex justify-content-center align-items-center">
+    <div
+      style={{ height: "90vh" }}
+      className=" container  d-flex justify-content-center align-items-center"
+    >
       <form onSubmit={handleSubmit} className="card p-5 border-0 shadow-lg ">
         <div className="mb-2 d-flex justify-content-center">
           <h2>Login</h2>
@@ -77,7 +79,6 @@ function Login() {
               setuserName(e.target.value);
             }}
           />
-          
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">
@@ -93,7 +94,9 @@ function Login() {
             }}
           />
         </div>
-         <p className="text-center">Don't have an account <Link to={"/signup"}> Sign up</Link></p>
+        <p className="text-center">
+          Don't have an account <Link to={"/signup"}> Sign up</Link>
+        </p>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
