@@ -59,7 +59,7 @@ function SignUp() {
           <h2>Sign Up</h2>
         </div>
         {error && (
-          <div class="alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert">
             {error}
           </div>
         )}

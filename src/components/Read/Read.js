@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Create from "../Create/Create";
-import Draggable from "react-draggable";
 import "./Read.css";
 import env from "react-dotenv";
 import { useNavigate } from "react-router-dom";
@@ -167,8 +166,8 @@ export default function Read() {
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
           {data?.map((ele) => (
-            <Draggable key={ele._id}>
-              <div  className="col  ">
+           
+              <div key={ele._id} className="col  ">
                 <div
                   style={{ backgroundColor: "#FFD31D" }}
                   className="shadow-lg p-3 rounded-3 mb-2"
@@ -212,7 +211,7 @@ export default function Read() {
                   </div>
                 </div>
               </div>
-            </Draggable>
+         
           ))}
           <button
             onClick={() => {

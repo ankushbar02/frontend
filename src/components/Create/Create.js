@@ -63,7 +63,7 @@ export default function Create(params) {
 
   return (
     <div className="container mt-5 d-flex justify-content-center  ">
-      {error && <div class="alert alert-danger">{error}</div>}
+      {error && <div className="alert alert-danger">{error}</div>}
       <form className="col-sm-8 create form " onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">

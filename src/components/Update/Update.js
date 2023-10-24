@@ -77,7 +77,7 @@ export default function Update() {
 
   return (
     <div className="container mt-5 d-flex justify-content-center  ">
-      {error && <div class="alert  alert-success  fixed-bottom">{error}</div>}
+      {error && <div className="alert  alert-success  fixed-bottom">{error}</div>}
       <form className="col-sm-8 form " onSubmit={handleSubmit}>
         {/*  */}
         <div className="mb-3">
