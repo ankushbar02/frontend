@@ -10,8 +10,7 @@ function Login() {
   // console.log(userName, password);
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 2);
+  const maxAge = 3 * 24 * 60 * 60;
   // console.log(env.BACKEND_WEB);
   useEffect(() => {
     
@@ -46,7 +45,7 @@ function Login() {
       setuserName("");
       setpassword("");
       // console.log(result.token);
-      document.cookie=`jwt=${result.token}; expires=${expirationDate.toUTCString()}`
+      document.cookie=`jwt=${result.token}; maxAge=${maxAge*1000};samesite=none;secure=true; httpOnly=false;`
       // console.log("logedin");
       navigate("/readnotes");
     }
