@@ -12,6 +12,7 @@ function Login() {
   const [cookies] = useCookies(["jwt"]);
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 2);
+  console.log(env.BACKEND_WEB);
   useEffect(() => {
     
     if (cookies.jwt) {
