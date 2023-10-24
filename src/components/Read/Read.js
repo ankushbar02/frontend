@@ -59,7 +59,6 @@ export default function Read() {
   //
   useEffect(() => {
     const verifyUser = async () => {
-      // console.log(cookies.jwt);
       if (!cookies.jwt) {
         return navigate("/");
       } else {
@@ -73,18 +72,21 @@ export default function Read() {
         const result = await response.json();
         if (result.status) {
           setuserName(result.user);
-          return getData();
         } else {
           removeCookie();
-          return navigate("/");
+          navigate("/");
         }
       }
     };
+  
     verifyUser();
   }, [cookies, navigate, removeCookie]);
+  
   useEffect(() => {
+    // Fetch data here
     getData();
-  }, [visible]);
+  }, [cookies, visible]);
+  
 
   const logOut = () => {
     removeCookie("jwt");
