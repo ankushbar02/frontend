@@ -1,7 +1,7 @@
 window.env = {
   "ALLUSERSPROFILE": "C:\\ProgramData",
   "APPDATA": "C:\\Users\\ankush\\AppData\\Roaming",
-  "BACKEND_WEB": "http://localhost:4000",
+  "BACKEND_WEB": "https://stickybackend-6p5k.onrender.com",
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "133322418720698906",
   "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_9080_QJDMWRDMGXZNASAA",
