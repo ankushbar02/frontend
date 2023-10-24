@@ -59,44 +59,31 @@ export default function Read() {
     return newDate;
   };
 
-  useEffect(() => {
-    const verifyUser = async () => {
-      if (!cookies.jwt) {
-        navigate("/");
+useEffect(() => {
+  const verifyUser = async () => {
+    console.log(cookies.jwt);
+    if (!cookies.jwt) {
+      navigate("/");
+    } else {
+      const response = await fetch(`${env.BACKEND_WEB}/`, {
+        method: "POST",
+        credentials: "include",
+      });
+      const result = await response.json();
+      if (result.status) {
+        setUserName(result.user);
       } else {
-        try {
-          const response = await fetch(`${env.BACKEND_WEB}/`, { // Update the URL and endpoint
-            method: "POST",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          if (!response.ok) {
-            throw new Error("User verification failed");
-          }
-          const result = await response.json();
-          if (result.status) {
-            setUserName(result.user);
-            getData();
-          } else {
-            removeCookie("jwt"); 
-            var Cookies = document.cookie.split(";");
-            for (var i = 0; i < Cookies.length; i++)
-              document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
-            navigate("/");
-          }
-        } catch (error) {
-          setError(error.message);
-        }
+        removeCookie();
+        navigate("/");
       }
-    };
-    verifyUser();
-  }, [cookies, navigate, removeCookie]);
+    }
+  };
+  verifyUser();
+}, [cookies, navigate, removeCookie]);
 
   useEffect(() => {
     getData();
-  }, [visible]);
+  }, [visible,userName]);
   
 
   const logOut = () => {
