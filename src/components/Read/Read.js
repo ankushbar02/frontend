@@ -78,8 +78,12 @@ export default function Read() {
           const result = await response.json();
           if (result.status) {
             setUserName(result.user);
+            getData();
           } else {
-            removeCookie("jwt"); // Remove the jwt cookie
+            removeCookie("jwt"); 
+            var Cookies = document.cookie.split(";");
+            for (var i = 0; i < Cookies.length; i++)
+              document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
             navigate("/");
           }
         } catch (error) {
@@ -92,7 +96,7 @@ export default function Read() {
 
   useEffect(() => {
     getData();
-  }, [cookies, visible]);
+  }, [visible]);
   
 
   const logOut = () => {
