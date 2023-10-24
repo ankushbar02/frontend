@@ -64,7 +64,7 @@ export default function Read() {
     const verifyUser = async () => {
       console.log(cookies.jwt);
       if (!cookies.jwt) {
-        navigate("/login");
+        navigate("/");
       } else {
         const response = await fetch(`${env.BACKEND_WEB}/`, {
           method: "POST",
