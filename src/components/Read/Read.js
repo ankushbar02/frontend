@@ -2,88 +2,95 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Create from "../Create/Create";
 import "./Read.css";
-import env from "react-dotenv";
+import env from "react-dotenv"; // Update the import path for env
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie"; // Update the import for react-cookie
+
 export default function Read() {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies(["jwt"]);
 
-  const [userName, setuserName] = useState("");
-
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
-  const [visible, setvisible] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [error, setError] = useState("");
+  const [data, setData] = useState([]);
+  const [visible, setVisible] = useState(false);
 
   async function getData() {
-    const response = await fetch(`${env.BACKEND_WEB}/`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    });
-    const result = await response.json();
-    if (!response.ok) {
-      setError(result.error);
-    }
-    if (response.ok) {
+    try {
+      const response = await fetch(`${env.BACKEND_WEB}/`, { // Update the URL and endpoint
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const result = await response.json();
       setData(result);
-
       setError("");
+    } catch (error) {
+      setError(error.message);
     }
   }
 
   const handleDelete = async (id) => {
-    const response = await fetch(`${env.BACKEND_WEB}/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-    });
-    const result = await response.json();
-    if (!response.ok) {
-      setError(result.error);
-    }
-    if (response.ok) {
+    try {
+      const response = await fetch(`${env.BACKEND_WEB}/${id}`, { // Update the URL and endpoint
+        method: "DELETE",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete data");
+      }
       setError("Deleted Successfully");
       setTimeout(() => {
         setError("");
         getData();
       }, 500);
+    } catch (error) {
+      setError(error.message);
     }
-  };
+  }
 
   const getDate = (date) => {
-    const update = new Date("" + date);
+    const update = new Date(date);
     const newDate = update.toDateString();
     return newDate;
   };
-  //
+
   useEffect(() => {
     const verifyUser = async () => {
       if (!cookies.jwt) {
-        return navigate("/");
+        navigate("/");
       } else {
-        const response = await fetch(`${env.BACKEND_WEB}/`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const result = await response.json();
-        if (result.status) {
-          setuserName(result.user);
-        } else {
-          removeCookie();
-          navigate("/");
+        try {
+          const response = await fetch(`${env.BACKEND_WEB}/`, { // Update the URL and endpoint
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!response.ok) {
+            throw new Error("User verification failed");
+          }
+          const result = await response.json();
+          if (result.status) {
+            setUserName(result.user);
+          } else {
+            removeCookie("jwt"); // Remove the jwt cookie
+            navigate("/");
+          }
+        } catch (error) {
+          setError(error.message);
         }
       }
     };
-  
     verifyUser();
   }, [cookies, navigate, removeCookie]);
-  
+
   useEffect(() => {
-    // Fetch data here
     getData();
   }, [cookies, visible]);
   
@@ -120,7 +127,7 @@ export default function Read() {
                   data-bs-dismiss="modal"
                   aria-label="Close"
                   onClick={() => {
-                    setvisible(!visible);
+                    setVisible(!visible);
                   }}
                 />
               </div>
@@ -133,7 +140,7 @@ export default function Read() {
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
                   onClick={() => {
-                    setvisible(!visible);
+                    setVisible(!visible);
                   }}
                 >
                   Close
@@ -216,7 +223,7 @@ export default function Read() {
           ))}
           <button
             onClick={() => {
-              setvisible(!visible);
+              setVisible(!visible);
             }}
             type="button"
             className="btn btn-primary bot"
