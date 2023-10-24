@@ -18,7 +18,7 @@ export default function Read() {
 
   async function getData() {
     
-    const response = await fetch(`${env.BACKEND_WEB}` , {
+    const response = await fetch(`${env.BACKEND_WEB}/` , {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -66,7 +66,7 @@ export default function Read() {
       if (!cookies.jwt) {
         navigate("/login");
       } else {
-        const response = await fetch(`${env.BACKEND_WEB}`, {
+        const response = await fetch(`${env.BACKEND_WEB}/`, {
           method: "POST",
           credentials: "include",
         });
@@ -188,7 +188,7 @@ export default function Read() {
                       <div className="btn-group">
                         <Link
                           className="btn btn-sm btn-outline-secondary"
-                          to={`/${ele._id}`}
+                          to={`/update/${ele._id}`}
                         >
                           <span className="material-symbols-outlined fs-6">
                             edit

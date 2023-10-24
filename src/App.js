@@ -16,10 +16,10 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route exact path="/" element={<Login />}></Route>
+            <Route exact path="/login" element={<Login />}></Route>
             <Route exact path="/readnotes" element={<Read />}></Route>
             <Route exact path="/signup" element={<SignUp />} /> 
-            <Route exact path="/:id" element={<Update />}></Route>
+            <Route exact path="/update/:id" element={<Update />}></Route>
             <Route path="*" element={<WrongPage />} />
           </Routes>
         </BrowserRouter>
