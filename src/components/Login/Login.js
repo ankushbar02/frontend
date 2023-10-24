@@ -5,8 +5,8 @@ import env from "react-dotenv"
 function Login() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
-
   const [error, setError] = useState("");
+  
   // console.log(userName, password);
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
@@ -19,7 +19,6 @@ function Login() {
       navigate("/readnotes");
     }
   }, [cookies, navigate]);
-
   console.log(cookies.jwt);
 
   async function handleSubmit(e) {
