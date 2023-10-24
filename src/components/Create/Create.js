@@ -22,7 +22,7 @@ export default function Create(params) {
 
   useEffect(() => {
     if (!cookies.jwt) {
-      navigate("/");
+    return  navigate("/");
     }
   }, [cookies, navigate]);
 
@@ -57,7 +57,7 @@ export default function Create(params) {
       setTittle("");
       setnote("");
       setError("");
-      navigate("/readnotes");
+     return navigate("/readnotes");
     }
   };
 

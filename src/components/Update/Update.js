@@ -14,7 +14,7 @@ const defaultStyle = {
 };
 export default function Update() {
   //Manage Input
-  const textareaRef = useRef(null);
+  const textareaRef = useRef({});
   const [note, setnote] = useState("");
   const [tittle, setTittle] = useState("");
   const [error, setError] = useState("");
@@ -30,7 +30,7 @@ export default function Update() {
   const [cookies] = useCookies(["jwt"]);
   useEffect(() => {
     if (!cookies.jwt) {
-      navigate("/");
+     return navigate("/");
     }
   }, [cookies, navigate]);
 
@@ -82,7 +82,7 @@ export default function Update() {
         <div className="alert  alert-success  fixed-bottom">{error}</div>
       )}
       <form className="col-sm-8 form " onSubmit={handleSubmit}>
-        {/*  */}
+        
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Tittle

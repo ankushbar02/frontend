@@ -10,14 +10,13 @@ export default function Read() {
   const [cookies, removeCookie] = useCookies(["jwt"]);
 
   const [userName, setuserName] = useState("");
- 
+
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
   const [visible, setvisible] = useState(false);
 
   async function getData() {
-    
-    const response = await fetch(`${env.BACKEND_WEB}/` , {
+    const response = await fetch(`${env.BACKEND_WEB}/`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -57,13 +56,12 @@ export default function Read() {
     const newDate = update.toDateString();
     return newDate;
   };
-// 
+  //
   useEffect(() => {
-    
     const verifyUser = async () => {
       // console.log(cookies.jwt);
       if (!cookies.jwt) {
-        navigate("/");
+        return navigate("/");
       } else {
         const response = await fetch(`${env.BACKEND_WEB}/`, {
           method: "POST",
@@ -72,23 +70,24 @@ export default function Read() {
         const result = await response.json();
         if (result.status) {
           setuserName(result.user);
+          getData();
         } else {
           removeCookie();
-          navigate("/");
+          return navigate("/");
         }
       }
     };
     verifyUser();
+  }, [cookies, navigate, removeCookie]);
+  useEffect(() => {
     getData();
-  }, [cookies, navigate, removeCookie,visible]);
-
-
+  }, [visible]);
 
   const logOut = () => {
     removeCookie("jwt");
-    var Cookies = document.cookie.split(';');
+    var Cookies = document.cookie.split(";");
     for (var i = 0; i < Cookies.length; i++)
-    document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
+      document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
     navigate("/");
   };
 
@@ -110,7 +109,6 @@ export default function Read() {
           <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div className="modal-content">
               <div className="modal-header">
-               
                 <button
                   type="button"
                   className="btn-close"
@@ -166,52 +164,50 @@ export default function Read() {
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
           {data?.map((ele) => (
-           
-              <div key={ele._id} className="col  ">
-                <div
-                  style={{ backgroundColor: "#FFD31D" }}
-                  className="shadow-lg p-3 rounded-3 mb-2"
-                >
-                  <div className="card-body">
-                    <div className=" d-flex justify-content-between border-bottom border-dark ">
-                      <h4 className="pb-2 "> {ele.tittle}</h4>
-                      <small className="text-body-secondary sma">
-                        Created: {getDate(ele.createdAt)}
-                      </small>
-                    </div>
+            <div key={ele._id} className="col  ">
+              <div
+                style={{ backgroundColor: "#FFD31D" }}
+                className="shadow-lg p-3 rounded-3 mb-2"
+              >
+                <div className="card-body">
+                  <div className=" d-flex justify-content-between border-bottom border-dark ">
+                    <h4 className="pb-2 "> {ele.tittle}</h4>
+                    <small className="text-body-secondary sma">
+                      Created: {getDate(ele.createdAt)}
+                    </small>
+                  </div>
 
-                    <p className="card-text">
-                      <code>{ele.note}</code>{" "}
-                    </p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="btn-group">
-                        <Link
-                          className="btn btn-sm btn-outline-secondary"
-                          to={`/update/${ele._id}`}
-                        >
-                          <span className="material-symbols-outlined fs-6">
-                            edit
-                          </span>
-                        </Link>
+                  <p className="card-text">
+                    <code>{ele.note}</code>{" "}
+                  </p>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div className="btn-group">
+                      <Link
+                        className="btn btn-sm btn-outline-secondary"
+                        to={`/update/${ele._id}`}
+                      >
+                        <span className="material-symbols-outlined fs-6">
+                          edit
+                        </span>
+                      </Link>
 
-                        <button
-                          type="button"
-                          className="btn btn-sm   text-danger btn-outline-secondary"
-                          onClick={() => handleDelete(ele._id)}
-                        >
-                          <span className="material-symbols-outlined fs-6">
-                            delete
-                          </span>
-                        </button>
-                      </div>
-                      <small className="text-body-secondary sma">
-                        updated: {getDate(ele.updatedAt)}
-                      </small>
+                      <button
+                        type="button"
+                        className="btn btn-sm   text-danger btn-outline-secondary"
+                        onClick={() => handleDelete(ele._id)}
+                      >
+                        <span className="material-symbols-outlined fs-6">
+                          delete
+                        </span>
+                      </button>
                     </div>
+                    <small className="text-body-secondary sma">
+                      updated: {getDate(ele.updatedAt)}
+                    </small>
                   </div>
                 </div>
               </div>
-         
+            </div>
           ))}
           <button
             onClick={() => {
