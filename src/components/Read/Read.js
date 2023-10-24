@@ -63,7 +63,7 @@ useEffect(() => {
   const verifyUser = async () => {
     console.log(cookies.jwt);
     if (!cookies.jwt) {
-      navigate("/");
+     return navigate("/");
     } else {
       const response = await fetch(`${env.BACKEND_WEB}/`, {
         method: "POST",
@@ -74,7 +74,10 @@ useEffect(() => {
         setUserName(result.user);
       } else {
         removeCookie();
-        navigate("/");
+        var Cookies = document.cookie.split(";");
+        for (var i = 0; i < Cookies.length; i++)
+          document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
+      return  navigate("/");
       }
     }
   };
@@ -83,7 +86,7 @@ useEffect(() => {
 
   useEffect(() => {
     getData();
-  }, [visible,userName]);
+  }, [visible]);
   
 
   const logOut = () => {
