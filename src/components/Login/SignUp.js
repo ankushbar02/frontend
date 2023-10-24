@@ -12,8 +12,7 @@ function SignUp() {
 
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 2);
+  const maxAge = 3 * 24 * 60 * 60;
  
   useEffect(() => {
     if (cookies.jwt) {
@@ -49,7 +48,7 @@ function SignUp() {
     if (!result.errors) {
       setuserName("");
       setpassword("");
-      document.cookie=`jwt=${result.token}; expires=${expirationDate.toUTCString()}`
+      document.cookie=`jwt=${result.token}; maxAge=${maxAge*1000};samesite=none;secure=true; httpOnly=false;`
       navigate("/readnotes");
     }
   }
