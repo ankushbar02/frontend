@@ -130,47 +130,6 @@ export default function Read() {
       {error && <div className="alert alert-danger fixed-bottom">{error}</div>}
 
       <div className="container px-4 py-5" id="featured-3">
-        {/* {visible && <Create />} */}
-        <div
-          className="modal fade  "
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabIndex={-1}
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  onClick={() => {
-                    setVisible(!visible);
-                  }}
-                />
-              </div>
-              <div className="modal-body">
-                <Create />
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                  onClick={() => {
-                    setVisible(!visible);
-                  }}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="d-flex  mb-4 border-bottom justify-content-between">
           <h2 className=" ">Notes</h2>
           <div className="dropdown-center">
@@ -243,17 +202,16 @@ export default function Read() {
               </div>
             </div>
           ))}
-          <button
+          <Link
             onClick={() => {
               setVisible(!visible);
             }}
-            type="button"
+           to={"/create"}
             className="btn btn-primary bot"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
+           
           >
             <span className="material-symbols-outlined">add</span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

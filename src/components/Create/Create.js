@@ -22,9 +22,9 @@ export default function Create(params) {
 
   useEffect(() => {
     if (!cookies.jwt) {
-    return  navigate("/");
+      return navigate("/");
     }
-  }, [cookies, navigate]);
+  }, [cookies.jwt]);
 
   useEffect(() => {
     textareaRef.current.style.height = "0px";
@@ -57,7 +57,7 @@ export default function Create(params) {
       setTittle("");
       setnote("");
       setError("");
-     return navigate("/readnotes");
+      navigate("/readnotes");
     }
   };
 

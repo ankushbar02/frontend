@@ -8,6 +8,7 @@ import Login from "./components/Login/Login";
 
 import SignUp from "./components/Login/SignUp";
 import WrongPage from "./components/WrongPage";
+import Create from "./components/Create/Create";
 function App() {
   return (
     <div className="App ">
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/" element={<Login />}></Route>
             <Route exact path="/readnotes" element={<Read />}></Route>
             <Route exact path="/signup" element={<SignUp />} /> 
+            <Route exact path="/create" element={<Create />} />
             <Route exact path="/update/:id" element={<Update />}></Route>
             <Route path="*" element={<WrongPage />} />
           </Routes>
