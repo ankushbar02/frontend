@@ -66,11 +66,14 @@ export default function Read() {
         const response = await fetch(`${env.BACKEND_WEB}/`, {
           method: "POST",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
         const result = await response.json();
         if (result.status) {
           setuserName(result.user);
-          getData();
+          return getData();
         } else {
           removeCookie();
           return navigate("/");
