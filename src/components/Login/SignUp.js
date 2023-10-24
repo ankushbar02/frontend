@@ -4,9 +4,11 @@ import { useCookies } from "react-cookie";
 import env from "react-dotenv";
 
 function SignUp() {
-  const [userName, setUserName] = useState(""); // Changed setuserName to setUserName
-  const [password, setPassword] = useState(""); // Changed setpassword to setPassword
+  const [userName, setuserName] = useState("");
+  const [password, setpassword] = useState("");
   const [error, setError] = useState("");
+  // console.log(userName, password);
+
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
   const expirationDate = new Date();
@@ -14,13 +16,14 @@ function SignUp() {
 
   useEffect(() => {
     if (cookies.jwt) {
-      navigate("/readnotes");
+      return navigate("/readnotes");
     }
-  }, [cookies.jwt]);
+  }, [cookies, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { userName, password };
+    // console.log(JSON.stringify(data));
     const response = await fetch(`${env.BACKEND_WEB}/signup`, {
       method: "POST",
       headers: {
@@ -30,7 +33,7 @@ function SignUp() {
       body: JSON.stringify(data),
     });
     const result = await response.json();
-
+    // console.log(result.errors);
     if (result.errors) {
       const { email, password } = result.errors;
       if (email) {
@@ -39,22 +42,26 @@ function SignUp() {
           navigate("/");
         }, 2000);
       } else if (password) setError(password);
+      setuserName("");
+      setpassword("");
     }
-
     if (!result.errors) {
-      document.cookie = `jwt=${result.token}; expires=${expirationDate.toUTCString()}`;
-      setUserName(""); // Reset user input fields
-      setPassword(""); // Reset user input fields
-      navigate("/readnotes");
+      document.cookie = `jwt=${
+        result.token
+      }; expires=${expirationDate.toUTCString()}`;
+      setuserName("");
+      setpassword("");
+
+      return navigate("/readnotes");
     }
   }
 
   return (
     <div
       style={{ height: "90vh" }}
-      className="container bod d-flex justify-content-center align-items-center"
+      className=" container bod d-flex justify-content-center align-items-center"
     >
-      <form onSubmit={handleSubmit} className="card p-5 border-0 shadow-lg">
+      <form onSubmit={handleSubmit} className="card p-5 border-0 shadow-lg ">
         <div className="mb-2 d-flex justify-content-center">
           <h2>Sign Up</h2>
         </div>
@@ -74,7 +81,7 @@ function SignUp() {
             aria-describedby="emailHelp"
             value={userName}
             onChange={(e) => {
-              setUserName(e.target.value);
+              setuserName(e.target.value);
             }}
           />
         </div>
@@ -88,12 +95,12 @@ function SignUp() {
             id="exampleInputPassword1"
             value={password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setpassword(e.target.value);
             }}
           />
         </div>
         <p className="text-center">
-          Already have an account? <Link to="/">Login</Link>
+          Already have an account <Link to={"/"}> Login</Link>
         </p>
         <button type="submit" className="btn btn-primary">
           Submit

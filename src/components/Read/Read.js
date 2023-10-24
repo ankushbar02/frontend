@@ -61,39 +61,46 @@ export default function Read() {
     return newDate;
   };
 
-
-
   useEffect(() => {
     const verifyUser = async () => {
       if (!cookies.jwt) {
-        return navigate("/");
+        navigate("/");
       } else {
-        const response = await fetch(`${env.BACKEND_WEB}/`, {
-          method: "POST",
-          credentials: "include",
-        });
-        const result = await response.json();
-        if (result.status) {
-          setUserName(result.user);
-          getData()
-        } else {
-          removeCookie();
-          var Cookies = document.cookie.split(";");
-          for (var i = 0; i < Cookies.length; i++)
-            document.cookie =
-              Cookies[i] + "=;expires=" + new Date(0).toUTCString();
-          return navigate("/");
+        try {
+          const response = await fetch(`${env.BACKEND_WEB}/`, {
+            // Update the URL and endpoint
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!response.ok) {
+            throw new Error("User verification failed");
+          }
+          const result = await response.json();
+          if (result.status) {
+            setUserName(result.user);
+            getData();
+          } else {
+            removeCookie("jwt");
+            var Cookies = document.cookie.split(";");
+            for (var i = 0; i < Cookies.length; i++)
+              document.cookie =
+                Cookies[i] + "=;expires=" + new Date(0).toUTCString();
+            navigate("/");
+          }
+        } catch (error) {
+          setError(error.message);
         }
       }
     };
-    if (cookies.jwt) {
-      verifyUser();
-    }
-  }, [cookies.jwt]);
+    verifyUser();
+  }, [cookies, navigate, removeCookie]);
 
   useEffect(() => {
     getData();
-  }, [visible,userName]);
+  }, [visible]);
 
   const logOut = () => {
     removeCookie("jwt");
@@ -108,6 +115,8 @@ export default function Read() {
       {error && <div className="alert alert-danger fixed-bottom">{error}</div>}
 
       <div className="container px-4 py-5" id="featured-3">
+        {/* {visible && <Create />} */}
+
         <div className="d-flex  mb-4 border-bottom justify-content-between">
           <h2 className=" ">Notes</h2>
           <div className="dropdown-center">
@@ -180,14 +189,7 @@ export default function Read() {
               </div>
             </div>
           ))}
-          <Link
-            onClick={() => {
-              setVisible(!visible);
-            }}
-           to={"/create"}
-            className="btn btn-primary bot"
-           
-          >
+          <Link to={"/create"} className="btn btn-primary bot">
             <span className="material-symbols-outlined">add</span>
           </Link>
         </div>

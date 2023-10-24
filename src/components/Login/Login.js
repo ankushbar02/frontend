@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import env from "react-dotenv";
-
 function Login() {
-  const [userName, setUserName] = useState(""); // Changed setuserName to setUserName
-  const [password, setPassword] = useState(""); // Changed setpassword to setPassword
+  const [userName, setuserName] = useState("");
+  const [password, setpassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
@@ -14,9 +13,9 @@ function Login() {
 
   useEffect(() => {
     if (cookies.jwt) {
-      navigate("/readnotes");
+     return navigate("/readnotes");
     }
-  }, [cookies.jwt]);
+  }, [cookies, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -41,16 +40,21 @@ function Login() {
       } else if (password) setError(password);
     }
     if (!result.errors) {
-      document.cookie = `jwt=${result.token}; expires=${expirationDate.toUTCString()};`;
-      setUserName(""); // Reset user input fields
-      setPassword(""); // Reset user input fields
-      navigate("/readnotes");
+      document.cookie = `jwt=${
+        result.token
+      }; expires=${expirationDate.toUTCString()};`;
+      setuserName("");
+      setpassword("");
+     return navigate("/readnotes");
     }
   }
 
   return (
-    <div style={{ height: "90vh" }} className="container d-flex justify-content-center align-items-center">
-      <form onSubmit={handleSubmit} className="card p-5 border-0 shadow-lg">
+    <div
+      style={{ height: "90vh" }}
+      className=" container  d-flex justify-content-center align-items-center"
+    >
+      <form onSubmit={handleSubmit} className="card p-5 border-0 shadow-lg ">
         <div className="mb-2 d-flex justify-content-center">
           <h2>Login</h2>
         </div>
@@ -70,7 +74,7 @@ function Login() {
             aria-describedby="emailHelp"
             value={userName}
             onChange={(e) => {
-              setUserName(e.target.value);
+              setuserName(e.target.value);
             }}
           />
         </div>
@@ -84,12 +88,12 @@ function Login() {
             id="exampleInputPassword1"
             value={password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setpassword(e.target.value);
             }}
           />
         </div>
         <p className="text-center">
-          Don't have an account? <Link to="/signup">Sign up</Link> {/* Removed curly braces in Link */}
+          Don't have an account <Link to={"/signup"}> Sign up</Link>
         </p>
         <button type="submit" className="btn btn-primary">
           Submit

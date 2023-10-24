@@ -32,7 +32,7 @@ export default function Update() {
     if (!cookies.jwt) {
      return navigate("/");
     }
-  }, [cookies.jwt]);
+  }, [cookies, navigate]);
 
   useEffect(() => {
     const getSingleData = async () => {
