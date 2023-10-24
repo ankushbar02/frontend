@@ -24,7 +24,7 @@ export default function Create(params) {
     if (!cookies.jwt) {
       return navigate("/");
     }
-  }, [cookies.jwt]);
+  }, [document.cookie]);
 
   useEffect(() => {
     textareaRef.current.style.height = "0px";

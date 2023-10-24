@@ -16,7 +16,7 @@ function Login() {
     if (cookies.jwt) {
       navigate("/readnotes");
     }
-  }, [cookies.jwt]);
+  }, [document.cookie]);
 
   async function handleSubmit(e) {
     e.preventDefault();
