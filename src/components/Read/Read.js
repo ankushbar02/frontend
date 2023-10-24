@@ -17,7 +17,8 @@ export default function Read() {
 
   async function getData() {
     try {
-      const response = await fetch(`${env.BACKEND_WEB}/`, { // Update the URL and endpoint
+      const response = await fetch(`${env.BACKEND_WEB}/`, {
+        // Update the URL and endpoint
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -35,7 +36,8 @@ export default function Read() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${env.BACKEND_WEB}/${id}`, { // Update the URL and endpoint
+      const response = await fetch(`${env.BACKEND_WEB}/${id}`, {
+        // Update the URL and endpoint
         method: "DELETE",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -51,7 +53,7 @@ export default function Read() {
     } catch (error) {
       setError(error.message);
     }
-  }
+  };
 
   const getDate = (date) => {
     const update = new Date(date);
@@ -59,35 +61,61 @@ export default function Read() {
     return newDate;
   };
 
-useEffect(() => {
-  const verifyUser = async () => {
-    console.log(cookies.jwt);
-    if (!cookies.jwt) {
-     return navigate("/");
-    } else {
-      const response = await fetch(`${env.BACKEND_WEB}/`, {
-        method: "POST",
-        credentials: "include",
-      });
-      const result = await response.json();
-      if (result.status) {
-        setUserName(result.user);
+  // useEffect(() => {
+  //   const verifyUser = async () => {
+  //     console.log(cookies.jwt);
+  //     if (!cookies.jwt) {
+  //      return navigate("/");
+  //     } else {
+  //       const response = await fetch(`${env.BACKEND_WEB}/`, {
+  //         method: "POST",
+  //         credentials: "include",
+  //       });
+  //       const result = await response.json();
+  //       if (result.status) {
+  //         setUserName(result.user);
+  //       } else {
+  //         removeCookie();
+  //         var Cookies = document.cookie.split(";");
+  //         for (var i = 0; i < Cookies.length; i++)
+  //           document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
+  //       return  navigate("/");
+  //       }
+  //     }
+  //   };
+  //   verifyUser();
+  // }, []);
+
+  useEffect(() => {
+    const verifyUser = async () => {
+      if (!cookies.jwt) {
+        return navigate("/");
       } else {
-        removeCookie();
-        var Cookies = document.cookie.split(";");
-        for (var i = 0; i < Cookies.length; i++)
-          document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
-      return  navigate("/");
+        const response = await fetch(`${env.BACKEND_WEB}/`, {
+          method: "POST",
+          credentials: "include",
+        });
+        const result = await response.json();
+        if (result.status) {
+          setUserName(result.user);
+        } else {
+          removeCookie();
+          var Cookies = document.cookie.split(";");
+          for (var i = 0; i < Cookies.length; i++)
+            document.cookie =
+              Cookies[i] + "=;expires=" + new Date(0).toUTCString();
+          return navigate("/");
+        }
       }
+    };
+    if (cookies.jwt) {
+      verifyUser();
     }
-  };
-  verifyUser();
-}, []);
+  }, [cookies.jwt]);
 
   useEffect(() => {
     getData();
-  }, [visible]);
-  
+  }, [visible,userName]);
 
   const logOut = () => {
     removeCookie("jwt");
