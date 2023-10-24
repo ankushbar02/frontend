@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import env from "react-dotenv"
+import env from "react-dotenv";
 
 function SignUp() {
-  
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
   const [error, setError] = useState("");
@@ -14,10 +13,10 @@ function SignUp() {
   const [cookies] = useCookies(["jwt"]);
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 2);
- 
+
   useEffect(() => {
     if (cookies.jwt) {
-      navigate("/readnotes");
+      return navigate("/readnotes");
     }
   }, [cookies, navigate]);
 
@@ -47,15 +46,21 @@ function SignUp() {
       setpassword("");
     }
     if (!result.errors) {
+      document.cookie = `jwt=${
+        result.token
+      }; expires=${expirationDate.toUTCString()}`;
       setuserName("");
       setpassword("");
-      document.cookie=`jwt=${result.token}; expires=${expirationDate.toUTCString()}`
-      navigate("/readnotes");
+
+      return navigate("/readnotes");
     }
   }
 
   return (
-    <div style={{height:"90vh"}} className=" container bod d-flex justify-content-center align-items-center">
+    <div
+      style={{ height: "90vh" }}
+      className=" container bod d-flex justify-content-center align-items-center"
+    >
       <form onSubmit={handleSubmit} className="card p-5 border-0 shadow-lg ">
         <div className="mb-2 d-flex justify-content-center">
           <h2>Sign Up</h2>
@@ -79,7 +84,6 @@ function SignUp() {
               setuserName(e.target.value);
             }}
           />
-         
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">
@@ -95,7 +99,9 @@ function SignUp() {
             }}
           />
         </div>
-        <p className="text-center">Already have an account <Link to={"/"}> Login</Link></p>
+        <p className="text-center">
+          Already have an account <Link to={"/"}> Login</Link>
+        </p>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>

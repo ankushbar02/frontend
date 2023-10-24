@@ -79,12 +79,10 @@ export default function Read() {
       }
     };
     verifyUser();
-  }, [cookies, navigate, removeCookie, setuserName]);
-
-  // console.log(visible);
-  useEffect(() => {
     getData();
-  }, [visible]);
+  }, [cookies, navigate, removeCookie,visible]);
+
+
 
   const logOut = () => {
     removeCookie("jwt");

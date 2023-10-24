@@ -6,16 +6,14 @@ function Login() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
   const [error, setError] = useState("");
-
-  // console.log(userName, password);
   const navigate = useNavigate();
   const [cookies] = useCookies(["jwt"]);
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 2);
-  // console.log(env.BACKEND_WEB);
+
   useEffect(() => {
     if (cookies.jwt) {
-      navigate("/readnotes");
+     return navigate("/readnotes");
     }
   }, [cookies, navigate]);
 
@@ -42,12 +40,12 @@ function Login() {
       } else if (password) setError(password);
     }
     if (!result.errors) {
-      setuserName("");
-      setpassword("");
       document.cookie = `jwt=${
         result.token
       }; expires=${expirationDate.toUTCString()};`;
-      navigate("/readnotes");
+      setuserName("");
+      setpassword("");
+     return navigate("/readnotes");
     }
   }
 
