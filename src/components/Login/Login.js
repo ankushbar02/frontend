@@ -12,14 +12,14 @@ function Login() {
   const [cookies] = useCookies(["jwt"]);
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 2);
-  console.log(env.BACKEND_WEB);
+  // console.log(env.BACKEND_WEB);
   useEffect(() => {
     
     if (cookies.jwt) {
       navigate("/readnotes");
     }
   }, [cookies, navigate]);
-  console.log(cookies.jwt);
+ 
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -45,7 +45,7 @@ function Login() {
     if (!result.errors) {
       setuserName("");
       setpassword("");
-      console.log(result.token);
+      // console.log(result.token);
       document.cookie=`jwt=${result.token}; expires=${expirationDate.toUTCString()}`
       // console.log("logedin");
       navigate("/readnotes");
