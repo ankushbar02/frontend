@@ -1,7 +1,7 @@
 window.env = {
   "ALLUSERSPROFILE": "C:\\ProgramData",
   "APPDATA": "C:\\Users\\ankush\\AppData\\Roaming",
-  "BACKEND_WEB": "https://stickynotes-6nhe.onrender.com/",
+  "BACKEND_WEB": "https://stickynotes-6nhe.onrender.com",
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "133322418720698906",
   "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_18308_IUQBOOSNITNIBQRD",

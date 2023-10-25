@@ -36,7 +36,7 @@ export default function Update() {
 
   useEffect(() => {
     const getSingleData = async () => {
-      const response = await fetch(`${env.BACKEND_WEB}/${id}`, {
+      const response = await fetch(`${env.BACKEND_WEB}/single/${id}`, {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export default function Update() {
     e.preventDefault();
     const data = { tittle, note };
     // console.log(JSON.stringify(data));
-    const response = await fetch(`${env.BACKEND_WEB}/${id}`, {
+    const response = await fetch(`${env.BACKEND_WEB}/update/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -17,7 +17,7 @@ export default function Read() {
 
   async function getData() {
     try {
-      const response = await fetch(`${env.BACKEND_WEB}/`, {
+      const response = await fetch(`${env.BACKEND_WEB}/all`, {
         // Update the URL and endpoint
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -36,7 +36,7 @@ export default function Read() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${env.BACKEND_WEB}/${id}`, {
+      const response = await fetch(`${env.BACKEND_WEB}/delete/${id}`, {
         // Update the URL and endpoint
         method: "DELETE",
         credentials: "include",
@@ -67,7 +67,7 @@ export default function Read() {
         navigate("/");
       } else {
         try {
-          const response = await fetch(`${env.BACKEND_WEB}/`, {
+          const response = await fetch(`${env.BACKEND_WEB}/home`, {
             // Update the URL and endpoint
             method: "POST",
             credentials: "include",
