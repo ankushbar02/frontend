@@ -30,9 +30,9 @@ export default function Update() {
   const [cookies] = useCookies(["jwt"]);
   useEffect(() => {
     if (!cookies.jwt) {
-     return navigate("/");
+      navigate("/");
     }
-  }, [cookies, navigate]);
+  }, [cookies]);
 
   useEffect(() => {
     const getSingleData = async () => {

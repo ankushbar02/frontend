@@ -16,9 +16,9 @@ function SignUp() {
 
   useEffect(() => {
     if (cookies.jwt) {
-      return navigate("/readnotes");
+       navigate("/readnotes");
     }
-  }, [cookies, navigate]);
+  }, [cookies]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -52,7 +52,7 @@ function SignUp() {
       setuserName("");
       setpassword("");
 
-      return navigate("/readnotes");
+       navigate("/readnotes");
     }
   }
 

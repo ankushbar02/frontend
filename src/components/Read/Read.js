@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Create from "../Create/Create";
+
 import "./Read.css";
 import env from "react-dotenv"; // Update the import path for env
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ export default function Read() {
   const [userName, setUserName] = useState("");
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
-  const [visible, setVisible] = useState(false);
+  
 
   async function getData() {
     try {
@@ -96,11 +96,11 @@ export default function Read() {
       }
     };
     verifyUser();
-  }, [cookies, navigate, removeCookie]);
+  }, [cookies]);
 
   useEffect(() => {
     getData();
-  }, [visible]);
+  }, [navigate]);
 
   const logOut = () => {
     removeCookie("jwt");
