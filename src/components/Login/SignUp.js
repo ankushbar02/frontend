@@ -29,7 +29,7 @@ function SignUp() {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/signup`,
-        "Access-Control-Allow-Credentials": true,
+      
       },
       credentials: "include",
       body: JSON.stringify(data),

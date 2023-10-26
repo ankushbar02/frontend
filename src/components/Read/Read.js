@@ -21,7 +21,7 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
-          "Access-Control-Allow-Credentials": true,
+         
         },
         credentials: "include",
       });
@@ -44,7 +44,7 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
-          "Access-Control-Allow-Credentials": true,
+         
         },
       });
       if (!response.ok) {
@@ -65,47 +65,7 @@ export default function Read() {
     const newDate = update.toDateString();
     return newDate;
   };
-
-  // useEffect(() => {
-  //   const verifyUser = async () => {
-  //     if (!jwt) {
-  //       navigate("/");
-  //     } else {
-  //       try {
-  //         const response = await fetch(`${env.BACKEND_WEB}/home`, {
-  //           method: "POST",
-  //           credentials: "include",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Origin: `${env.CLIENT_WEB}/readnotes`,
-              
-  //           },
-  //         });
-  //         if (!response.ok) {
-  //           throw new Error("User verification failed");
-  //         }
-  //         const result = await response.json();
-  //         if (result.status) {
-  //           setUserName(result.user);
-  //           // Set the "jwt" cookie when verification is successful
-
-  //           Cookies.set("jwt", result.token, {
-  //             expires: 2,
-  //            secure: true,sameSite:"None"
-              
-  //           });
-  //           getData();
-  //         } else {
-  //           // Remove the "jwt" cookie when verification fails
-  //           Cookies.remove("jwt");
-  //         }
-  //       } catch (error) {
-  //         setError(error.message);
-  //       }
-  //     }
-  //   };
-  //   verifyUser();
-  // }, [navigate, jwt]);
+  
   useEffect(() => {
     const verifyUser = async () => {
       if (!jwt) {
@@ -118,7 +78,7 @@ export default function Read() {
             headers: {
               "Content-Type": "application/json",
               "Origin": env.CLIENT_WEB, // Remove "/readnotes" from the Origin header
-              "Access-Control-Allow-Credentials": true,
+           
             },
           });
           if (!response.ok) {

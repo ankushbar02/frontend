@@ -45,7 +45,7 @@ export default function Create(params) {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.BACKEND_WEB}/createnote`,
-        "Access-Control-Allow-Credentials": true,
+       
         },
       credentials: "include",
       body: JSON.stringify(data),
