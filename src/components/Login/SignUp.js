@@ -28,7 +28,7 @@ function SignUp() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Origin: env.CLIENT_WEB,
+        Origin: env.CLIENT_WEB,
         },
       credentials: "include",
       body: JSON.stringify(data),
