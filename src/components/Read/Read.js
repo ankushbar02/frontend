@@ -89,8 +89,7 @@ export default function Read() {
             Cookies.set("jwt", result.token, {
               expires: 2,
               secure: true,
-              sameSite: "none",
-              domain:env.BACKEND_WEB
+              
             });
             getData();
           } else {

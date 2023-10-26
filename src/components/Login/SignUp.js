@@ -13,12 +13,12 @@ function SignUp() {
 
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 2);
-  
+
   useEffect(() => {
     if (jwt) {
       navigate("/readnotes");
     }
-  }, [jwt,navigate]);
+  }, [jwt, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -47,7 +47,11 @@ function SignUp() {
       setpassword("");
     }
     if (!result.errors) {
-      Cookies.set("jwt",result.token,{expires:2,secure:true,sameSite:"none",domain:env.BACKEND_WEB})
+      Cookies.set("jwt", result.token, {
+        expires: 2,
+        secure: true,
+       
+      });
       setuserName("");
       setpassword("");
 
