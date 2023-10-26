@@ -40,11 +40,11 @@ export default function Create(params) {
     e.preventDefault();
     const data = { tittle, note };
     // console.log(JSON.stringify(data));
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/createnote`, {
+    const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_WEB}/createnote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Origin:`${process.env.REACT_APP_CLIENT_WEB}/create` ,
+        Origin:`${import.meta.env.REACT_APP_CLIENT_WEB}/create` ,
         },
       credentials: "include",
       body: JSON.stringify(data),

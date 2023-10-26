@@ -20,11 +20,11 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { userName, password };
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/login`, {
+    const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_WEB}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Origin:`${process.env.REACT_APP_CLIENT_WEB}` ,
+        Origin:`${import.meta.env.REACT_APP_CLIENT_WEB}` ,
         },
       credentials: "include",
       body: JSON.stringify(data),
