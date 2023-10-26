@@ -25,7 +25,7 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/`,
-        
+        "Access-Control-Allow-Credentials": true,
       },
       credentials: "include",
       body: JSON.stringify(data),
@@ -42,7 +42,7 @@ function Login() {
       } else if (password) setError(password);
     }
     if (!result.errors) {
-      Cookies.set("jwt", result.token, { expires: 2, secure: true });
+      Cookies.set("jwt", result.token, { expires: 2,secure: true,sameSite:"None" });
       setuserName("");
       setpassword("");
       navigate("/readnotes");

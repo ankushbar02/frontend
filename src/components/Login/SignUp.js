@@ -29,7 +29,7 @@ function SignUp() {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/signup`,
-      
+        "Access-Control-Allow-Credentials": true,
       },
       credentials: "include",
       body: JSON.stringify(data),
@@ -50,7 +50,7 @@ function SignUp() {
     if (!result.errors) {
       Cookies.set("jwt", result.token, {
         expires: 2,
-        secure: true,
+       secure: true,sameSite:"None"
        
       });
       setuserName("");

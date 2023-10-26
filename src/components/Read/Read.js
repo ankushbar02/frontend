@@ -21,7 +21,7 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
-         
+          "Access-Control-Allow-Credentials": true,
         },
         credentials: "include",
       });
@@ -44,7 +44,7 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
-         
+          "Access-Control-Allow-Credentials": true,
         },
       });
       if (!response.ok) {
@@ -91,7 +91,7 @@ export default function Read() {
 
   //           Cookies.set("jwt", result.token, {
   //             expires: 2,
-  //             secure: true,
+  //            secure: true,sameSite:"None"
               
   //           });
   //           getData();
@@ -118,6 +118,7 @@ export default function Read() {
             headers: {
               "Content-Type": "application/json",
               "Origin": env.CLIENT_WEB, // Remove "/readnotes" from the Origin header
+              "Access-Control-Allow-Credentials": true,
             },
           });
           if (!response.ok) {
@@ -129,7 +130,7 @@ export default function Read() {
             // Set the "jwt" cookie when verification is successful
             Cookies.set("jwt", result.token, {
               expires: 2,
-              secure: true,
+             secure: true,sameSite:"None"
             });
             getData();
           } else {
