@@ -66,8 +66,6 @@ export default function Read() {
 
   useEffect(() => {
     const verifyUser = async () => {
-      // Store the cookie value in a variable
-
       if (!jwt) {
         navigate("/");
       } else {
@@ -86,9 +84,16 @@ export default function Read() {
           const result = await response.json();
           if (result.status) {
             setUserName(result.user);
+            // Set the "jwt" cookie when verification is successful
 
+            Cookies.set("jwt", result.token, {
+              expires: 2,
+              secure: true,
+              sameSite: "none",
+            });
             getData();
           } else {
+            // Remove the "jwt" cookie when verification fails
             Cookies.remove("jwt");
           }
         } catch (error) {
