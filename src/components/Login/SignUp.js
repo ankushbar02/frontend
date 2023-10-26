@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import env from "react-dotenv";
+
 
 function SignUp() {
   const [userName, setuserName] = useState("");
@@ -24,11 +24,11 @@ function SignUp() {
     e.preventDefault();
     const data = { userName, password };
     // console.log(JSON.stringify(data));
-    const response = await fetch(`${env.BACKEND_WEB}/signup`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Origin: env.CLIENT_WEB,
+        Origin:`${process.env.REACT_APP_CLIENT_WEB}/signup` ,
         },
       credentials: "include",
       body: JSON.stringify(data),

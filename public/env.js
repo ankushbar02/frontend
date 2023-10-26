@@ -5,6 +5,7 @@ window.env = {
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "133322418720698906",
   "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_6824_GFGQWZUWTRREVFGP",
+  "CLIENT_WEB": "https://stickynotes-mern.netlify.app",
   "COLOR": "1",
   "COLORTERM": "truecolor",
   "CommonProgramFiles": "C:\\Program Files\\Common Files",

@@ -2,27 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Read.css";
-import env from "react-dotenv"; // Update the import path for env
+
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie"; // Update the import for react-cookie
 
 export default function Read() {
   const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies(["jwt"]);
+  const { cookies, setCookie, removeCookie } = useCookies(["jwt"]);
+
 
   const [userName, setUserName] = useState("");
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
   
 
-  async function getData() {
+  const getData = async () => {
     try {
-      const response = await fetch(`${env.BACKEND_WEB}/all`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/all`, {
         // Update the URL and endpoint
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Origin: env.CLIENT_WEB,
+          Origin:`${process.env.REACT_APP_CLIENT_WEB}/readnotes` ,
        },
         credentials: "include",
       });
@@ -39,13 +40,13 @@ export default function Read() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${env.BACKEND_WEB}/delete/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/delete/${id}`, {
         // Update the URL and endpoint
         method: "DELETE",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Origin: env.CLIENT_WEB,
+          Origin:`${process.env.REACT_APP_CLIENT_WEB}/readnotes` ,
           },
       });
       if (!response.ok) {
@@ -73,13 +74,13 @@ export default function Read() {
         navigate("/");
       } else {
         try {
-          const response = await fetch(`${env.BACKEND_WEB}/home`, {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/home`, {
             // Update the URL and endpoint
-            method: "POST",
+            method: "GET",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              Origin: env.CLIENT_WEB,
+              Origin:`${process.env.REACT_APP_CLIENT_WEB}/readnotes` ,
               },
           });
           if (!response.ok) {
@@ -103,11 +104,9 @@ export default function Read() {
       }
     };
     verifyUser();
-  }, [cookies.jwt]);
+  }, [cookies,navigate]);
 
-  useEffect(() => {
-    getData();
-  }, [navigate]);
+  
 
   const logOut = () => {
     removeCookie("jwt");
