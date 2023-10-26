@@ -22,11 +22,8 @@ export default function Read() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Origin": env.CLIENT_WEB,
-          "Access-Control-Request-Method": "GET",
-          "Access-Control-Request-Headers":
-            "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
-        },
+          // Origin: env.CLIENT_WEB,
+       },
         credentials: "include",
       });
       if (!response.ok) {
@@ -48,7 +45,7 @@ export default function Read() {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Origin: env.CLIENT_WEB,
+          // Origin: env.CLIENT_WEB,
           },
       });
       if (!response.ok) {

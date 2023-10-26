@@ -40,7 +40,7 @@ export default function Update() {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Origin: env.CLIENT_WEB,
+          // Origin: env.CLIENT_WEB,
           },
       });
       const result = await response.json();
