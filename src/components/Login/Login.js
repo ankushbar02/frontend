@@ -25,7 +25,7 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/`,
-        "Cookie":"jwt="+jwt
+        
       },
       credentials: "include",
       body: JSON.stringify(data),
