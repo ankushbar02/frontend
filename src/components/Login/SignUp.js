@@ -47,9 +47,7 @@ function SignUp() {
       setpassword("");
     }
     if (!result.errors) {
-      document.cookie = `jwt=${
-        result.token
-      }; expires=${expirationDate.toUTCString()}`;
+      Cookie.set("jwt",result.token,{expires:2,secure:true})
       setuserName("");
       setpassword("");
 

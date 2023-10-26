@@ -41,9 +41,7 @@ function Login() {
       } else if (password) setError(password);
     }
     if (!result.errors) {
-      document.cookie = `jwt=${
-        result.token
-      }; expires=${expirationDate.toUTCString()};secure=true;sameSite=none`;
+      Cookie.set("jwt", result.token, { expires: 2, secure: true });
       setuserName("");
       setpassword("");
       navigate("/readnotes");
