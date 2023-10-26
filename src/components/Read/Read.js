@@ -48,11 +48,8 @@ export default function Read() {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "Origin": env.CLIENT_WEB,
-          "Access-Control-Request-Method": "DELETE",
-          "Access-Control-Request-Headers":
-            "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
-        },
+          Origin: env.CLIENT_WEB,
+          },
       });
       if (!response.ok) {
         throw new Error("Failed to delete data");
@@ -85,11 +82,8 @@ export default function Read() {
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              "Origin": env.CLIENT_WEB,
-              "Access-Control-Request-Method": "POST",
-              "Access-Control-Request-Headers":
-                "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
-            },
+              Origin: env.CLIENT_WEB,
+              },
           });
           if (!response.ok) {
             throw new Error("User verification failed");

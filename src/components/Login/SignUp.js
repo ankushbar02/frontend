@@ -28,11 +28,8 @@ function SignUp() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Origin": env.CLIENT_WEB,
-        "Access-Control-Request-Method": "POST",
-        "Access-Control-Request-Headers":
-          "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
-      },
+        Origin: env.CLIENT_WEB,
+        },
       credentials: "include",
       body: JSON.stringify(data),
     });
