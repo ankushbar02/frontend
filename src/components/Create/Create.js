@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import env from "react-dotenv";
 import { useCookies } from "react-cookie";
 const defaultStyle = {
   display: "block",
@@ -22,9 +22,9 @@ export default function Create(params) {
 
   useEffect(() => {
     if (!cookies.jwt) {
-      navigate("/");
+    return  navigate("/");
     }
-  }, [cookies.jwt,navigate]);
+  }, [cookies]);
 
   useEffect(() => {
     textareaRef.current.style.height = "0px";
@@ -40,11 +40,11 @@ export default function Create(params) {
     e.preventDefault();
     const data = { tittle, note };
     // console.log(JSON.stringify(data));
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/createnote`, {
+    const response = await fetch(`${env.BACKEND_WEB}/createnote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Origin:`${process.env.REACT_APP_CLIENT_WEB}/create` ,
+        Origin: `${env.BACKEND_WEB}/createnote`,
         },
       credentials: "include",
       body: JSON.stringify(data),

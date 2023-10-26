@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import env from "react-dotenv";
 
 import { useCookies } from "react-cookie";
 const defaultStyle = {
@@ -36,11 +36,11 @@ export default function Update() {
 
   useEffect(() => {
     const getSingleData = async () => {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/single/${id}`, {
+      const response = await fetch(`${env.BACKEND_WEB}/single/${id}`, {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Origin:`${process.env.REACT_APP_CLIENT_WEB}/update/` ,
+          Origin:`${env.CLIENT_WEB}/update/` ,
           },
       });
       const result = await response.json();
@@ -56,11 +56,11 @@ export default function Update() {
     e.preventDefault();
     const data = { tittle, note };
     // console.log(JSON.stringify(data));
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/update/${id}`, {
+    const response = await fetch(`${env.BACKEND_WEB}/update/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Origin:`${process.env.REACT_APP_CLIENT_WEB}/update/` ,
+        Origin:`${env.CLIENT_WEB}/update/` ,
         },
       credentials: "include",
       body: JSON.stringify(data),

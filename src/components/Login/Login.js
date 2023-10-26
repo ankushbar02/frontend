@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-
+import env from "react-dotenv";
 function Login() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
@@ -20,11 +20,11 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { userName, password };
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_WEB}/login`, {
+    const response = await fetch(`${env.BACKEND_WEB}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Origin:`${process.env.REACT_APP_CLIENT_WEB}` ,
+        Origin:`${env.CLIENT_WEB}` ,
         },
       credentials: "include",
       body: JSON.stringify(data),
