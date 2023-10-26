@@ -21,6 +21,7 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
+          "Cookie":jwt
         },
         credentials: "include",
       });
@@ -43,6 +44,7 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
+          "Cookie":jwt
         },
       });
       if (!response.ok) {
@@ -76,6 +78,7 @@ export default function Read() {
             headers: {
               "Content-Type": "application/json",
               Origin: `${env.CLIENT_WEB}/readnotes`,
+              "Cookie":jwt
             },
           });
           if (!response.ok) {

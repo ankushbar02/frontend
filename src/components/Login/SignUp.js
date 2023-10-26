@@ -29,6 +29,7 @@ function SignUp() {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/signup`,
+        "Cookie":jwt
       },
       credentials: "include",
       body: JSON.stringify(data),
