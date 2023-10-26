@@ -20,7 +20,13 @@ export default function Read() {
       const response = await fetch(`${env.BACKEND_WEB}/all`, {
         // Update the URL and endpoint
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Origin": env.CLIENT_WEB,
+          "Access-Control-Request-Method": "GET",
+          "Access-Control-Request-Headers":
+            "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
+        },
         credentials: "include",
       });
       if (!response.ok) {
@@ -40,7 +46,13 @@ export default function Read() {
         // Update the URL and endpoint
         method: "DELETE",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Origin": env.CLIENT_WEB,
+          "Access-Control-Request-Method": "DELETE",
+          "Access-Control-Request-Headers":
+            "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
+        },
       });
       if (!response.ok) {
         throw new Error("Failed to delete data");
@@ -73,6 +85,10 @@ export default function Read() {
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              "Origin": env.CLIENT_WEB,
+              "Access-Control-Request-Method": "POST",
+              "Access-Control-Request-Headers":
+                "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
             },
           });
           if (!response.ok) {
@@ -96,7 +112,7 @@ export default function Read() {
       }
     };
     verifyUser();
-  }, [cookies]);
+  }, [cookies.jwt]);
 
   useEffect(() => {
     getData();

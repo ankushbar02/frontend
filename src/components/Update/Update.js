@@ -32,7 +32,7 @@ export default function Update() {
     if (!cookies.jwt) {
       navigate("/");
     }
-  }, [cookies]);
+  }, [cookies.jwt]);
 
   useEffect(() => {
     const getSingleData = async () => {
@@ -40,6 +40,10 @@ export default function Update() {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          "Origin": env.CLIENT_WEB,
+          "Access-Control-Request-Method": "GET",
+          "Access-Control-Request-Headers":
+            "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
         },
       });
       const result = await response.json();
@@ -59,6 +63,10 @@ export default function Update() {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        "Origin": env.CLIENT_WEB,
+        "Access-Control-Request-Method": "PATCH",
+        "Access-Control-Request-Headers":
+          "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
       },
       credentials: "include",
       body: JSON.stringify(data),

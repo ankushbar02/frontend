@@ -15,7 +15,7 @@ function Login() {
     if (cookies.jwt) {
       navigate("/readnotes");
     }
-  }, [cookies]);
+  }, [cookies.jwt]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,6 +24,10 @@ function Login() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Origin": env.CLIENT_WEB,
+        "Access-Control-Request-Method": "POST",
+        "Access-Control-Request-Headers":
+          "Content-Length, Host, User-Agent, Accept, Accept-Encoding, Connection, Content-Type",
       },
       credentials: "include",
       body: JSON.stringify(data),
@@ -42,7 +46,7 @@ function Login() {
     if (!result.errors) {
       document.cookie = `jwt=${
         result.token
-      }; expires=${expirationDate.toUTCString()};`;
+      }; expires=${expirationDate.toUTCString()};secure=true;sameSite=none`;
       setuserName("");
       setpassword("");
       navigate("/readnotes");

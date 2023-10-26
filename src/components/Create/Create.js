@@ -44,7 +44,8 @@ export default function Create(params) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
+        Origin: env.CLIENT_WEB,
+        },
       credentials: "include",
       body: JSON.stringify(data),
     });
