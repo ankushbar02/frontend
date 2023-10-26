@@ -102,7 +102,7 @@ export default function Read() {
       }
     };
     verifyUser();
-  }, [Cookie.get(),navigate]);
+  }, [navigate,Cookie.get("jwt")]);
 
   
 
