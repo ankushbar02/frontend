@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import Cookie from "js-cookie";
 import "./Read.css";
 import env from "react-dotenv"; // Update the import path for env
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie"; // Update the import for react-cookie
+
 
 export default function Read() {
   const navigate = useNavigate();
-  const { cookies, setCookie, removeCookie } = useCookies(["jwt"]);
+  
 
 
   const [userName, setUserName] = useState("");
@@ -41,7 +41,7 @@ export default function Read() {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`${env.BACKEND_WEB}/delete/${id}`, {
-        // Update the URL and endpoint
+       
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -70,12 +70,13 @@ export default function Read() {
 
   useEffect(() => {
     const verifyUser = async () => {
-      if (!cookies.jwt) {
+      if (!Cookie.get("jwt")) {
+       
         navigate("/");
       } else {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/home`, {
-            // Update the URL and endpoint
+           
             method: "POST",
             credentials: "include",
             headers: {
@@ -89,14 +90,11 @@ export default function Read() {
           const result = await response.json();
           if (result.status) {
             setUserName(result.user);
+            
             getData();
           } else {
-            removeCookie("jwt");
-            var Cookies = document.cookie.split(";");
-            for (var i = 0; i < Cookies.length; i++)
-              document.cookie =
-                Cookies[i] + "=;expires=" + new Date(0).toUTCString();
-            navigate("/");
+            Cookie.remove("jwt");
+            
           }
         } catch (error) {
           setError(error.message);
@@ -104,15 +102,12 @@ export default function Read() {
       }
     };
     verifyUser();
-  }, [cookies,navigate]);
+  }, [Cookie.get(),navigate]);
 
   
 
   const logOut = () => {
-    removeCookie("jwt");
-    var Cookies = document.cookie.split(";");
-    for (var i = 0; i < Cookies.length; i++)
-      document.cookie = Cookies[i] + "=;expires=" + new Date(0).toUTCString();
+    Cookie.remove("jwt");
     navigate("/");
   };
 
@@ -139,7 +134,7 @@ export default function Read() {
                 <p
                   className="dropdown-item py-0 mb-0 "
                   role="button"
-                  onClick={logOut}
+                  onClick={()=>logOut}
                 >
                   Logout
                 </p>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import env from "react-dotenv";
-import { useCookies } from "react-cookie";
+import Cookie from "js-cookie";
 const defaultStyle = {
   display: "block",
   overflow: "hidden",
@@ -18,13 +18,13 @@ export default function Create(params) {
   const [tittle, setTittle] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [cookies] = useCookies(["jwt"]);
+  
 
   useEffect(() => {
-    if (!cookies.jwt) {
+    if (!Cookie.get("jwt")) {
     return  navigate("/");
     }
-  }, [cookies]);
+  }, [Cookie.get("jwt")]);
 
   useEffect(() => {
     textareaRef.current.style.height = "0px";

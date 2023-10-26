@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import env from "react-dotenv";
 
-import { useCookies } from "react-cookie";
+import Cookie from "js-cookie";
 const defaultStyle = {
   display: "block",
   overflow: "hidden",
@@ -27,12 +27,12 @@ export default function Update() {
   const { id } = useParams();
 
   const navigate = useNavigate();
-  const [cookies] = useCookies(["jwt"]);
+  
   useEffect(() => {
-    if (!cookies.jwt) {
+    if (!Cookie.get("jwt")) {
       navigate("/");
     }
-  }, [cookies.jwt,navigate]);
+  }, [Cookie.get("jwt"),navigate]);
 
   useEffect(() => {
     const getSingleData = async () => {

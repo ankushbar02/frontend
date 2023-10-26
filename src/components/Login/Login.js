@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import Cookie from "js-cookie";
 import env from "react-dotenv";
 function Login() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [cookies] = useCookies(["jwt"]);
+
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 2);
 
   useEffect(() => {
-    if (cookies.jwt) {
+    if (Cookie.get("jwt")) {
       navigate("/readnotes");
     }
-  }, [cookies.jwt]);
+  }, [Cookie.get("jwt")]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,8 +24,8 @@ function Login() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Origin:`${env.CLIENT_WEB}/` , 
-        },
+        Origin: `${env.CLIENT_WEB}/`,
+      },
       credentials: "include",
       body: JSON.stringify(data),
     });
@@ -41,9 +41,9 @@ function Login() {
       } else if (password) setError(password);
     }
     if (!result.errors) {
-      document.cookie = `jwt=${
-        result.token
-      }; expires=${expirationDate.toUTCString()};secure=true;sameSite=none`;
+      // document.cookie = `jwt=${
+      //   result.token
+      // }; expires=${expirationDate.toUTCString()};secure=true;sameSite=none`;
       setuserName("");
       setpassword("");
       navigate("/readnotes");
