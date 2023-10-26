@@ -66,6 +66,46 @@ export default function Read() {
     return newDate;
   };
 
+  // useEffect(() => {
+  //   const verifyUser = async () => {
+  //     if (!jwt) {
+  //       navigate("/");
+  //     } else {
+  //       try {
+  //         const response = await fetch(`${env.BACKEND_WEB}/home`, {
+  //           method: "POST",
+  //           credentials: "include",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Origin: `${env.CLIENT_WEB}/readnotes`,
+              
+  //           },
+  //         });
+  //         if (!response.ok) {
+  //           throw new Error("User verification failed");
+  //         }
+  //         const result = await response.json();
+  //         if (result.status) {
+  //           setUserName(result.user);
+  //           // Set the "jwt" cookie when verification is successful
+
+  //           Cookies.set("jwt", result.token, {
+  //             expires: 2,
+  //             secure: true,
+              
+  //           });
+  //           getData();
+  //         } else {
+  //           // Remove the "jwt" cookie when verification fails
+  //           Cookies.remove("jwt");
+  //         }
+  //       } catch (error) {
+  //         setError(error.message);
+  //       }
+  //     }
+  //   };
+  //   verifyUser();
+  // }, [navigate, jwt]);
   useEffect(() => {
     const verifyUser = async () => {
       if (!jwt) {
@@ -74,11 +114,10 @@ export default function Read() {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/home`, {
             method: "POST",
-            credentials: "include",
+            credentials: "include", // Include credentials, including cookies
             headers: {
               "Content-Type": "application/json",
-              Origin: `${env.CLIENT_WEB}/readnotes`,
-              
+              "Origin": env.CLIENT_WEB, // Remove "/readnotes" from the Origin header
             },
           });
           if (!response.ok) {
@@ -88,11 +127,9 @@ export default function Read() {
           if (result.status) {
             setUserName(result.user);
             // Set the "jwt" cookie when verification is successful
-
             Cookies.set("jwt", result.token, {
               expires: 2,
               secure: true,
-              
             });
             getData();
           } else {
@@ -106,6 +143,7 @@ export default function Read() {
     };
     verifyUser();
   }, [navigate, jwt]);
+  
 
   const logOut = () => {
     Cookies.remove("jwt");
