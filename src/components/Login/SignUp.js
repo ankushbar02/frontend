@@ -10,13 +10,13 @@ function SignUp() {
   // console.log(userName, password);
 
   const navigate = useNavigate();
-  
+
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 2);
 
   useEffect(() => {
     if (Cookie.get("jwt")) {
-       navigate("/readnotes");
+      navigate("/readnotes");
     }
   }, [Cookie.get("jwt")]);
 
@@ -28,8 +28,8 @@ function SignUp() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Origin:`${env.CLIENT_WEB}/signup` ,
-        },
+        Origin: `${env.CLIENT_WEB}/signup`,
+      },
       credentials: "include",
       body: JSON.stringify(data),
     });
@@ -47,13 +47,13 @@ function SignUp() {
       setpassword("");
     }
     if (!result.errors) {
-      // document.cookie = `jwt=${
-      //   result.token
-      // }; expires=${expirationDate.toUTCString()}`;
+      document.cookie = `jwt=${
+        result.token
+      }; expires=${expirationDate.toUTCString()}`;
       setuserName("");
       setpassword("");
 
-       navigate("/readnotes");
+      navigate("/readnotes");
     }
   }
 

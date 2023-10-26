@@ -41,9 +41,9 @@ function Login() {
       } else if (password) setError(password);
     }
     if (!result.errors) {
-      // document.cookie = `jwt=${
-      //   result.token
-      // }; expires=${expirationDate.toUTCString()};secure=true;sameSite=none`;
+      document.cookie = `jwt=${
+        result.token
+      }; expires=${expirationDate.toUTCString()};secure=true;sameSite=none`;
       setuserName("");
       setpassword("");
       navigate("/readnotes");
