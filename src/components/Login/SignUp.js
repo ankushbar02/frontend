@@ -47,7 +47,7 @@ function SignUp() {
       setpassword("");
     }
     if (!result.errors) {
-      Cookies.set("jwt",result.token,{expires:2,secure:true,sameSite:"none"})
+      Cookies.set("jwt",result.token,{expires:2,secure:true,sameSite:"none",domain:env.BACKEND_WEB})
       setuserName("");
       setpassword("");
 

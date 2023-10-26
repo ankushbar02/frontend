@@ -90,6 +90,7 @@ export default function Read() {
               expires: 2,
               secure: true,
               sameSite: "none",
+              domain:env.BACKEND_WEB
             });
             getData();
           } else {
