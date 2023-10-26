@@ -79,7 +79,7 @@ export default function Read() {
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              Origin: env.CLIENT_WEB,
+              // Origin: env.CLIENT_WEB,
               },
           });
           if (!response.ok) {
