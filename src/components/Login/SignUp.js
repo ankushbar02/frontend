@@ -18,7 +18,7 @@ function SignUp() {
     if (cookies.jwt) {
        navigate("/readnotes");
     }
-  }, [cookies.jwt]);
+  }, [cookies]);
 
   async function handleSubmit(e) {
     e.preventDefault();

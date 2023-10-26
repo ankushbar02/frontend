@@ -76,7 +76,7 @@ export default function Read() {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/home`, {
             // Update the URL and endpoint
-            method: "GET",
+            method: "POST",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
