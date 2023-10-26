@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import env from "react-dotenv";
 
 function SignUp() {
@@ -8,17 +8,17 @@ function SignUp() {
   const [password, setpassword] = useState("");
   const [error, setError] = useState("");
   // console.log(userName, password);
-
+  const jwt = Cookies.get().jwt;
   const navigate = useNavigate();
 
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 2);
-
+  
   useEffect(() => {
-    if (Cookie.get("jwt")) {
+    if (jwt) {
       navigate("/readnotes");
     }
-  }, [Cookie.get("jwt")]);
+  }, [jwt,navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -47,7 +47,7 @@ function SignUp() {
       setpassword("");
     }
     if (!result.errors) {
-      Cookie.set("jwt",result.token,{expires:2,secure:true})
+      Cookies.set("jwt",result.token,{expires:2,secure:true})
       setuserName("");
       setpassword("");
 

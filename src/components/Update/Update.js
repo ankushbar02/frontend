@@ -1,8 +1,8 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 import env from "react-dotenv";
-
-import Cookie from "js-cookie";
 const defaultStyle = {
   display: "block",
   overflow: "hidden",
@@ -12,106 +12,121 @@ const defaultStyle = {
   borderRadius: "10px",
   padding: "20px",
 };
+
 export default function Update() {
-  //Manage Input
-  const textareaRef = useRef({});
-  const [note, setnote] = useState("");
-  const [tittle, setTittle] = useState("");
+  const textareaRef = useRef(null);
+  const [note, setNote] = useState(""); // Initialize with empty string
+  const [tittle, setTittle] = useState(""); // Initialize with empty string
   const [error, setError] = useState("");
+
   useEffect(() => {
-    textareaRef.current.style.height = "0px";
-    const scrollHeight = textareaRef.current.scrollHeight;
-    textareaRef.current.style.height = scrollHeight + "px";
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "0px";
+      const scrollHeight = textareaRef.current.scrollHeight;
+      textareaRef.current.style.height = scrollHeight + "px";
+    }
   }, [note]);
 
   const { id } = useParams();
-
+  const jwt = Cookies.get("jwt"); // Get JWT from cookies
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    if (!Cookie.get("jwt")) {
-      navigate("/");
-    }
-  }, [Cookie.get("jwt"),navigate]);
 
   useEffect(() => {
-    const getSingleData = async () => {
-      const response = await fetch(`${env.BACKEND_WEB}/single/${id}`, {
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Origin:`${env.CLIENT_WEB}/update/` ,
-          },
-      });
-      const result = await response.json();
-      if (response.ok) {
-        setTittle(result.tittle);
-        setnote(result.note);
-      }
-    };
-    getSingleData();
-  }, [id]);
+    if (!jwt) {
+      navigate("/");
+    } else {
+      const getSingleData = async () => {
+        try {
+          const response = await fetch(`${env.BACKEND_WEB}/single/${id}`, {
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const result = await response.json();
+          if (response.ok) {
+            if (result.tittle && result.note) {
+              setTittle(result.tittle);
+              setNote(result.note);
+            } else {
+              setError("Data is missing tittle and note.");
+            }
+          } else {
+            setError("Failed to fetch data.");
+          }
+        } catch (error) {
+          setError(error.message);
+        }
+      };
+      getSingleData();
+    }
+  }, [jwt, navigate, id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate the form
+    if (!tittle || !note) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
     const data = { tittle, note };
-    // console.log(JSON.stringify(data));
+
     const response = await fetch(`${env.BACKEND_WEB}/update/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Origin:`${env.CLIENT_WEB}/update/` ,
-        },
+      },
       credentials: "include",
       body: JSON.stringify(data),
     });
-    const result = await response.json();
-    if (!response.ok) {
-      setError(result.error);
-    }
-    if (response.ok) {
-      setTittle("");
-      setnote("");
-      setError("");
 
-      navigate("/readnotes");
+    const result = await response.json();
+
+    if (!response.ok) {
+      setError(result.error || "Failed to update the note.");
+      return;
     }
+
+    // Clear the form
+    setTittle("");
+    setNote("");
+    setError("");
+
+    // Navigate to the read notes page
+    navigate("/readnotes");
   };
 
   return (
-    <div className="container mt-5 d-flex justify-content-center  ">
-      {error && (
-        <div className="alert  alert-success  fixed-bottom">{error}</div>
-      )}
-      <form className="col-sm-8 form " onSubmit={handleSubmit}>
-        
+    <div className="container mt-5 d-flex justify-content-center">
+      {error && <div className="alert alert-danger fixed-bottom">{error}</div>}
+      <form className="col-sm-8 form" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
-            Tittle
+            Title
           </label>
           <input
             type="text"
             className="form-control"
             id="exampleInputEmail1"
-            aria-describedby="emailHelp"
             value={tittle}
             onChange={(e) => {
               setTittle(e.target.value);
             }}
           />
-          <div id="emailHelp" className="form-text"></div>
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
+          <label htmlFor="exampleInput" className="form-label">
             Note
           </label>
           <textarea
             ref={textareaRef}
             style={defaultStyle}
-            id="exampleInputPassword1"
+            id="exampleInput"
             value={note}
             onChange={(e) => {
-              setnote(e.target.value);
+              setNote(e.target.value);
             }}
           />
         </div>

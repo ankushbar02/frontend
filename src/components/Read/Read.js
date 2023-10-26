@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import "./Read.css";
 import env from "react-dotenv"; // Update the import path for env
 import { useNavigate } from "react-router-dom";
 
-
 export default function Read() {
   const navigate = useNavigate();
-  
-
 
   const [userName, setUserName] = useState("");
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
-  
+
+  const jwt = Cookies.get().jwt;
 
   const getData = async () => {
     try {
       const response = await fetch(`${env.BACKEND_WEB}/all`, {
-        // Update the URL and endpoint
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Origin:`${env.CLIENT_WEB}/readnotes` ,
-       },
+          Origin: `${env.CLIENT_WEB}/readnotes`,
+        },
         credentials: "include",
       });
       if (!response.ok) {
@@ -36,18 +33,17 @@ export default function Read() {
     } catch (error) {
       setError(error.message);
     }
-  }
+  };
 
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`${env.BACKEND_WEB}/delete/${id}`, {
-       
         method: "DELETE",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Origin:`${env.CLIENT_WEB}/readnotes` ,
-          },
+          Origin: `${env.CLIENT_WEB}/readnotes`,
+        },
       });
       if (!response.ok) {
         throw new Error("Failed to delete data");
@@ -70,19 +66,19 @@ export default function Read() {
 
   useEffect(() => {
     const verifyUser = async () => {
-      if (!Cookie.get("jwt")) {
-       
+      // Store the cookie value in a variable
+
+      if (!jwt) {
         navigate("/");
       } else {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/home`, {
-           
             method: "POST",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              Origin:`${env.CLIENT_WEB}/readnotes` ,
-              },
+              Origin: `${env.CLIENT_WEB}/readnotes`,
+            },
           });
           if (!response.ok) {
             throw new Error("User verification failed");
@@ -90,11 +86,10 @@ export default function Read() {
           const result = await response.json();
           if (result.status) {
             setUserName(result.user);
-            
+
             getData();
           } else {
-            Cookie.remove("jwt");
-            
+            Cookies.remove("jwt");
           }
         } catch (error) {
           setError(error.message);
@@ -102,12 +97,10 @@ export default function Read() {
       }
     };
     verifyUser();
-  }, [navigate,Cookie.get("jwt")]);
-
-  
+  }, [navigate, jwt]);
 
   const logOut = () => {
-    Cookie.remove("jwt");
+    Cookies.remove("jwt");
     navigate("/");
   };
 
@@ -134,7 +127,7 @@ export default function Read() {
                 <p
                   className="dropdown-item py-0 mb-0 "
                   role="button"
-                  onClick={()=>logOut}
+                  onClick={logOut}
                 >
                   Logout
                 </p>
