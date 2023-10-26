@@ -22,7 +22,7 @@ export default function Read() {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
         },
-        credentials: "include",
+        credentials: "same-origin",
       });
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -39,7 +39,7 @@ export default function Read() {
     try {
       const response = await fetch(`${env.BACKEND_WEB}/delete/${id}`, {
         method: "DELETE",
-        credentials: "include",
+        credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
@@ -72,7 +72,7 @@ export default function Read() {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/home`, {
             method: "POST",
-            credentials: "include",
+            credentials: "same-origin",
             headers: {
               "Content-Type": "application/json",
               Origin: `${env.CLIENT_WEB}/readnotes`,

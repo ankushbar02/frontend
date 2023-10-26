@@ -25,8 +25,9 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/`,
+        
       },
-      credentials: "include",
+      credentials: "same-origin",
       body: JSON.stringify(data),
     });
     const result = await response.json();

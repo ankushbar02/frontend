@@ -38,7 +38,7 @@ export default function Update() {
       const getSingleData = async () => {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/single/${id}`, {
-            credentials: "include",
+            credentials: "same-origin",
             headers: {
               "Content-Type": "application/json",
             },
@@ -78,7 +78,7 @@ export default function Update() {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
+      credentials: "same-origin",
       body: JSON.stringify(data),
     });
 
