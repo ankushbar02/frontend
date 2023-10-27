@@ -41,7 +41,7 @@ export default function Update() {
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              
+              Origin: `${env.CLIENT_WEB}/update/`,
             },
           });
           const result = await response.json();
@@ -78,7 +78,7 @@ export default function Update() {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-    
+        Origin: `${env.CLIENT_WEB}/update/`
       },
       credentials: "include",
       body: JSON.stringify(data),

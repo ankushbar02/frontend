@@ -47,7 +47,7 @@ function Login() {
       } else if (password) setError(password);
     }
     if (!result.errors) {
-      // Cookies.set("jwt", result.token, { expires: 2,secure: true,sameSite:"None" });
+    
       document.cookie = "jwt="+result.token+";expires=" + nextThreeDays+";SameSite=None;Secure";
       setuserName("");
       setpassword("");

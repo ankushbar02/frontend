@@ -80,7 +80,7 @@ export default function Read() {
             credentials: "include", // Include credentials, including cookies
             headers: {
               "Content-Type": "application/json",
-              Origin: env.CLIENT_WEB, // Remove "/readnotes" from the Origin header
+              Origin: `${env.CLIENT_WEB}/readnotes`, 
             },
           });
           if (!response.ok) {
@@ -89,12 +89,7 @@ export default function Read() {
           const result = await response.json();
           if (result.status) {
             setUserName(result.user);
-            // Set the "jwt" cookie when verification is successful
-            // Cookies.set("jwt", result.token, {
-            //   expires: 2,
-            //   secure: true,
-            //   sameSite: "None",
-            // });
+           
             document.cookie = "jwt="+result.token+";expires=" + nextThreeDays+";SameSite=None;Secure";
             getData();
           } else {
