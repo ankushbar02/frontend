@@ -82,6 +82,7 @@ export default function Read() {
             headers: {
               "Content-Type": "application/json",
               Origin: `${env.CLIENT_WEB}/readnotes`, 
+              Authorization:"Bearer"+jwt
             },
           });
           if (!response.ok) {
