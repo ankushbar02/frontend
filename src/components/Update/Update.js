@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -15,8 +14,8 @@ const defaultStyle = {
 
 export default function Update() {
   const textareaRef = useRef(null);
-  const [note, setNote] = useState(""); // Initialize with empty string
-  const [tittle, setTittle] = useState(""); // Initialize with empty string
+  const [note, setNote] = useState("");
+  const [tittle, setTittle] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export default function Update() {
   }, [note]);
 
   const { id } = useParams();
-  const jwt = Cookies.get("jwt"); // Get JWT from cookies
+  const jwt = Cookies.get("jwt");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,11 +37,10 @@ export default function Update() {
       const getSingleData = async () => {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/single/${id}`, {
-            //  credentials: "include", 
             headers: {
               "Content-Type": "application/json",
               Origin: `${env.CLIENT_WEB}/update/`,
-              Authorization:"Bearer "+jwt
+              Authorization: "Bearer " + jwt,
             },
           });
           const result = await response.json();
@@ -66,46 +64,36 @@ export default function Update() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate the form
     if (!tittle || !note) {
       setError("Please fill in all required fields.");
       return;
     }
-
     const data = { tittle, note };
-
     const response = await fetch(`${env.BACKEND_WEB}/update/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/update/`,
-        Authorization:"Bearer "+jwt
+        Authorization: "Bearer " + jwt,
       },
-      //  credentials: "include", 
       body: JSON.stringify(data),
     });
 
     const result = await response.json();
-
     if (!response.ok) {
       setError(result.error || "Failed to update the note.");
       return;
     }
-
-    // Clear the form
     setTittle("");
     setNote("");
     setError("");
-
-    // Navigate to the read notes page
     navigate("/readnotes");
   };
 
   return (
     <div className="container mt-5 d-flex justify-content-center">
       {error && <div className="alert alert-danger fixed-bottom">{error}</div>}
-      <form className="col-sm-8 form" onSubmit={handleSubmit}>
+      <form className="col-md-8 col-12 form" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Title

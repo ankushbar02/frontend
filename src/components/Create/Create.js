@@ -12,61 +12,58 @@ const defaultStyle = {
   padding: "20px",
 };
 export default function Create(params) {
-  //Manage Input
   const textareaRef = useRef(null);
   const [note, setnote] = useState("");
   const [tittle, setTittle] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const jwt = Cookies.get().jwt;
- 
+  const data = { tittle, note };
+
   useEffect(() => {
     if (!jwt) {
-    return  navigate("/");
+      return navigate("/");
     }
-  }, [jwt,navigate]);
+  }, [jwt, navigate]);
 
   useEffect(() => {
     textareaRef.current.style.height = "0px";
     const scrollHeight = textareaRef.current.scrollHeight;
     textareaRef.current.style.height = scrollHeight + "px";
   }, [note]);
-  // console.log(tittle);
-  // console.log(note);
-
-  // Post Data
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = { tittle, note };
-    // console.log(JSON.stringify(data));
+    if (!tittle || !note) {
+      setError("Please create a note");
+      return;
+    }
+
     const response = await fetch(`${env.BACKEND_WEB}/createnote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.BACKEND_WEB}/createnote`,
-        Authorization:"Bearer "+jwt
-        },
-      //  credentials: "include", 
+        Authorization: "Bearer " + jwt,
+      },
       body: JSON.stringify(data),
     });
+
     const result = await response.json();
     if (!response.ok) {
       setError(result.error);
     }
     if (response.ok) {
-      // console.log(result);
       setTittle("");
       setnote("");
       setError("");
-     return navigate("/readnotes");
+      return navigate("/readnotes");
     }
   };
 
   return (
-    <div className="container mt-5 d-flex justify-content-center  ">
-      {error && <div className="alert alert-danger">{error}</div>}
-      <form className="col-sm-8 create form " onSubmit={handleSubmit}>
+    <div className="container mt-5 d-flex justify-content-center align-items-center flex-column  ">
+      <form className="col-md-8 col-12 create form " onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Tittle
@@ -97,11 +94,13 @@ export default function Create(params) {
             }}
           />
         </div>
-
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
+      <div className="fixed-bottom">
+        {error && <div className="alert alert-danger">{error}</div>}
+      </div>
     </div>
   );
 }

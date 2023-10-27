@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./Read.css";
-import env from "react-dotenv"; // Update the import path for env
+import env from "react-dotenv";
 import { useNavigate } from "react-router-dom";
 
 export default function Read() {
@@ -28,7 +28,6 @@ export default function Read() {
           Origin: `${env.CLIENT_WEB}/readnotes`,
           Authorization: "Bearer " + jwt,
         },
-        //  credentials: "include", 
       });
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -45,7 +44,6 @@ export default function Read() {
     try {
       const response = await fetch(`${env.BACKEND_WEB}/delete/${id}`, {
         method: "DELETE",
-        //  credentials: "include", 
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
@@ -79,7 +77,6 @@ export default function Read() {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/home`, {
             method: "POST",
-            //  credentials: "include",  
             headers: {
               "Content-Type": "application/json",
               Origin: `${env.CLIENT_WEB}/readnotes`,
@@ -88,17 +85,20 @@ export default function Read() {
           });
           if (!response.ok) {
             throw new Error("User verification failed");
-          }
-          const result = await response.json();
-          if (result.status) {
-            setUserName(result.user);
-            getData();
           } else {
-            // Remove the "jwt" cookie when verification fails
-            Cookies.remove("jwt");
+            const result = await response.json();
+            if (result.status) {
+              setUserName(result.user);
+              getData();
+            } else {
+              Cookies.remove("jwt");
+              navigate("/");
+            }
           }
         } catch (error) {
           setError(error.message);
+          Cookies.remove("jwt");
+          navigate("/");
         }
       }
     };
@@ -115,8 +115,6 @@ export default function Read() {
       {error && <div className="alert alert-danger fixed-bottom">{error}</div>}
 
       <div className="container px-4 py-5" id="featured-3">
-        {/* {visible && <Create />} */}
-
         <div className="d-flex  mb-4 border-bottom justify-content-between">
           <h2 className=" ">Notes</h2>
           <div className="dropdown-center">
@@ -156,7 +154,6 @@ export default function Read() {
                       Created: {getDate(ele.createdAt)}
                     </small>
                   </div>
-
                   <p className="card-text">
                     <code>{ele.note}</code>{" "}
                   </p>
@@ -170,7 +167,6 @@ export default function Read() {
                           edit
                         </span>
                       </Link>
-
                       <button
                         type="button"
                         className="btn btn-sm   text-danger btn-outline-secondary"

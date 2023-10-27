@@ -7,15 +7,15 @@ function SignUp() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
   const [error, setError] = useState("");
-  // console.log(userName, password);
   const jwt = Cookies.get().jwt;
   const navigate = useNavigate();
-
   const today = new Date();
+  const data = { userName, password };
   const nextThreeDays = new Date(
     today.setDate(today.getDate() + 3)
   ).toUTCString();
- 
+  const emailPattern =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   useEffect(() => {
     if (jwt) {
@@ -25,24 +25,59 @@ function SignUp() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const data = { userName, password };
-    // console.log(JSON.stringify(data));
+    if (!userName && !password) {
+      setError("Please fill in all required fields.");
+      setuserName("");
+      setpassword("");
+      setTimeout(() => {
+        setError("");
+      }, 1000);
+      return;
+    }
+    if (!userName) {
+      setError("Please enter your email .");
+      setuserName("");
+      setpassword("");
+      setTimeout(() => {
+        setError("");
+      }, 1000);
+      return;
+    }
+    if (!password) {
+      setError("Please enter your password.");
+      setTimeout(() => {
+        setError("");
+      }, 1000);
+      return;
+    }
+    if (!emailPattern.test(userName)) {
+      setError("Invalid email address");
+      setuserName("");
+      setpassword("");
+      setTimeout(() => {
+        setError("");
+      }, 1000);
+      return;
+    }
+
     const response = await fetch(`${env.BACKEND_WEB}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/signup`,
       },
-      //  credentials: "include", 
       body: JSON.stringify(data),
     });
+   
     const result = await response.json();
-    // console.log(result.errors);
     if (result.errors) {
       const { email, password } = result.errors;
       if (email) {
         setError(email);
+        setuserName("");
+        setpassword("");
         setTimeout(() => {
+          setError("");
           navigate("/");
         }, 2000);
       } else if (password) setError(password);
@@ -50,15 +85,14 @@ function SignUp() {
       setpassword("");
     }
     if (!result.errors) {
-      // Cookies.set("jwt", result.token, {
-      //   expires: 2,
-      //   secure: true,
-      //   sameSite: "None",
-      // });
-      document.cookie = "jwt="+result.token+";expires=" + nextThreeDays+";SameSite=None;Secure";
+      document.cookie =
+        "jwt=" +
+        result.token +
+        ";expires=" +
+        nextThreeDays +
+        ";SameSite=None;Secure";
       setuserName("");
       setpassword("");
-
       navigate("/readnotes");
     }
   }
@@ -79,7 +113,7 @@ function SignUp() {
         )}
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
-            Username
+            Email address
           </label>
           <input
             type="text"
@@ -87,6 +121,7 @@ function SignUp() {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             value={userName}
+            placeholder="example@xyz.com"
             onChange={(e) => {
               setuserName(e.target.value);
             }}
@@ -101,12 +136,13 @@ function SignUp() {
             className="form-control"
             id="exampleInputPassword1"
             value={password}
+            placeholder="password"
             onChange={(e) => {
               setpassword(e.target.value);
             }}
           />
         </div>
-        <p className="text-center">
+        <p className="email-center">
           Already have an account <Link to={"/"}> Login</Link>
         </p>
         <button type="submit" className="btn btn-primary">
