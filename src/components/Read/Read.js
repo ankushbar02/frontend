@@ -28,6 +28,7 @@ export default function Read() {
           Origin: `${env.CLIENT_WEB}/readnotes`,
         },
         credentials: "include",
+        
       });
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -89,8 +90,6 @@ export default function Read() {
           const result = await response.json();
           if (result.status) {
             setUserName(result.user);
-           
-            document.cookie = "jwt="+result.token+";expires=" + nextThreeDays+";SameSite=None;Secure";
             getData();
           } else {
             // Remove the "jwt" cookie when verification fails
