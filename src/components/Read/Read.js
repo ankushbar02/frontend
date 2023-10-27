@@ -26,7 +26,7 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
-          Authorization:"Bearer"+jwt
+          Authorization:"Bearer "+jwt
         },
         credentials: "include",
         
@@ -50,7 +50,7 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
-          Authorization:"Bearer"+jwt
+          Authorization:"Bearer "+jwt
         },
       });
       if (!response.ok) {
@@ -84,7 +84,7 @@ export default function Read() {
             headers: {
               "Content-Type": "application/json",
               Origin: `${env.CLIENT_WEB}/readnotes`, 
-              Authorization:"Bearer"+jwt
+              Authorization:"Bearer "+jwt
             },
           });
           if (!response.ok) {
