@@ -1,0 +1,16 @@
+.App {
+  height: 100vh;
+  overflow-y: scroll;
+  
+}
+.nav {
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .App {
+    height: max-content;
+  }
+}

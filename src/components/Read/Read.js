@@ -142,20 +142,20 @@ export default function Read() {
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
           {data?.map((ele) => (
-            <div key={ele._id} className="col  ">
+            <div key={ele._id} className="col  opacity-100 ">
               <div
-                style={{ backgroundColor: "#FFD31D" }}
-                className="shadow-lg p-3 rounded-3 mb-2"
+               
+                className=" cards p-3 rounded-3 mb-2"
               >
                 <div className="card-body">
-                  <div className=" d-flex justify-content-between border-bottom border-dark ">
-                    <h4 className="pb-2 "> {ele.tittle}</h4>
+                  <div className=" d-flex flex-wrap justify-content-between border-bottom border-dark ">
+                    <h6 className="pb-2 "> {ele.tittle}</h6>
                     <small className="text-body-secondary sma">
                       Created: {getDate(ele.createdAt)}
                     </small>
                   </div>
                   <p className="card-text">
-                    <code>{ele.note}</code>{" "}
+                    <code className="fs-5">{ele.note}</code>
                   </p>
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
@@ -185,8 +185,8 @@ export default function Read() {
               </div>
             </div>
           ))}
-          <Link to={"/create"} className="btn btn-primary bot">
-            <span className="material-symbols-outlined">add</span>
+          <Link to={"/create"} className="btn shadow-lg  btn-primary bot">
+            <span className=" material-symbols-outlined mt-3 ">add</span>
           </Link>
         </div>
       </div>
