@@ -9,8 +9,13 @@ function Login() {
   const navigate = useNavigate();
   const jwt = Cookies.get().jwt;
  
+  const today = new Date();
+  const nextThreeDays = new Date(
+    today.setDate(today.getDate() + 3)
+  ).toUTCString();
  
-  
+  // document.cookie = "jwt="+jwt+";expires=" + nextThreeDays+"secure,sameSite=None";
+  console.log(jwt);
   useEffect(() => {
     if (jwt) {
       navigate("/readnotes");
@@ -42,7 +47,8 @@ function Login() {
       } else if (password) setError(password);
     }
     if (!result.errors) {
-      Cookies.set("jwt", result.token, { expires: 2,secure: true,sameSite:"None" });
+      // Cookies.set("jwt", result.token, { expires: 2,secure: true,sameSite:"None" });
+      document.cookie = "jwt="+result.token+";expires=" + nextThreeDays+";SameSite=None;Secure";
       setuserName("");
       setpassword("");
       navigate("/readnotes");

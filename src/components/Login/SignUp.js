@@ -11,8 +11,11 @@ function SignUp() {
   const jwt = Cookies.get().jwt;
   const navigate = useNavigate();
 
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 2);
+  const today = new Date();
+  const nextThreeDays = new Date(
+    today.setDate(today.getDate() + 3)
+  ).toUTCString();
+ 
 
   useEffect(() => {
     if (jwt) {
@@ -29,7 +32,6 @@ function SignUp() {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/signup`,
-      
       },
       credentials: "include",
       body: JSON.stringify(data),
@@ -48,11 +50,12 @@ function SignUp() {
       setpassword("");
     }
     if (!result.errors) {
-      Cookies.set("jwt", result.token, {
-        expires: 2,
-       secure: true,sameSite:"None"
-       
-      });
+      // Cookies.set("jwt", result.token, {
+      //   expires: 2,
+      //   secure: true,
+      //   sameSite: "None",
+      // });
+      document.cookie = "jwt="+result.token+";expires=" + nextThreeDays+";SameSite=None;Secure";
       setuserName("");
       setpassword("");
 
