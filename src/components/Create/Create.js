@@ -45,9 +45,9 @@ export default function Create(params) {
       headers: {
         "Content-Type": "application/json",
         Origin: `${env.BACKEND_WEB}/createnote`,
-       
+        Authorization:"Bearer "+jwt
         },
-      credentials: "include",
+      //  credentials: "include", 
       body: JSON.stringify(data),
     });
     const result = await response.json();

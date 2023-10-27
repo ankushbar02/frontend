@@ -33,7 +33,7 @@ function SignUp() {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/signup`,
       },
-      credentials: "include",
+      //  credentials: "include", 
       body: JSON.stringify(data),
     });
     const result = await response.json();

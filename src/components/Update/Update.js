@@ -38,10 +38,11 @@ export default function Update() {
       const getSingleData = async () => {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/single/${id}`, {
-            credentials: "include",
+            //  credentials: "include", 
             headers: {
               "Content-Type": "application/json",
               Origin: `${env.CLIENT_WEB}/update/`,
+              Authorization:"Bearer "+jwt
             },
           });
           const result = await response.json();
@@ -78,9 +79,10 @@ export default function Update() {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Origin: `${env.CLIENT_WEB}/update/`
+        Origin: `${env.CLIENT_WEB}/update/`,
+        Authorization:"Bearer "+jwt
       },
-      credentials: "include",
+      //  credentials: "include", 
       body: JSON.stringify(data),
     });
 

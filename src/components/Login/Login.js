@@ -32,7 +32,7 @@ function Login() {
         Origin: `${env.CLIENT_WEB}/`,
         
       },
-      credentials: "include",
+      //  credentials: "include", 
       body: JSON.stringify(data),
     });
     const result = await response.json();

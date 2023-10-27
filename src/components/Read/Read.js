@@ -26,10 +26,9 @@ export default function Read() {
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
-          Authorization:"Bearer "+jwt
+          Authorization: "Bearer " + jwt,
         },
-        credentials: "include",
-        
+        //  credentials: "include", 
       });
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -46,11 +45,11 @@ export default function Read() {
     try {
       const response = await fetch(`${env.BACKEND_WEB}/delete/${id}`, {
         method: "DELETE",
-        credentials: "include",
+        //  credentials: "include", 
         headers: {
           "Content-Type": "application/json",
           Origin: `${env.CLIENT_WEB}/readnotes`,
-          Authorization:"Bearer "+jwt
+          Authorization: "Bearer " + jwt,
         },
       });
       if (!response.ok) {
@@ -80,11 +79,11 @@ export default function Read() {
         try {
           const response = await fetch(`${env.BACKEND_WEB}/home`, {
             method: "POST",
-            credentials: "include", // Include credentials, including cookies
+            //  credentials: "include",  
             headers: {
               "Content-Type": "application/json",
-              Origin: `${env.CLIENT_WEB}/readnotes`, 
-              Authorization:"Bearer "+jwt
+              Origin: `${env.CLIENT_WEB}/readnotes`,
+              Authorization: "Bearer " + jwt,
             },
           });
           if (!response.ok) {
