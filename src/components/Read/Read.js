@@ -176,19 +176,23 @@ export default function Read() {
                     </small>
                   </div>
                   <p className="card-text note">
-                    <code className="fs-5">{ele.note.slice(0,200)+"..."}</code>
+                    <code className="fs-5">
+                      {ele.note.length < 200
+                        ? ele.note
+                        : ele.note.slice(0, 200) + "..."}
+                    </code>
                   </p>
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
                       <button
-                        className="btn btn-dark"
+                        className="btn btn-primary"
                         onClick={() => {
                           openModal();
                           seTtext(ele.note);
                           setHead(ele.tittle);
                         }}
                       >
-                        read
+                        Read
                       </button>
                       <Link
                         className="btn btn-light btn-outline-secondary"
