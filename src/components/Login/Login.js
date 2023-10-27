@@ -15,7 +15,7 @@ function Login() {
   ).toUTCString();
  
   // document.cookie = "jwt="+jwt+";expires=" + nextThreeDays+"secure,sameSite=None";
-  console.log(jwt);
+  
   useEffect(() => {
     if (jwt) {
       navigate("/readnotes");
