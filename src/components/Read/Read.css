@@ -4,6 +4,16 @@
   right: 20px;
   width: 70px;
   height: 70px;
+  color: white;
+  background-color: black;
+  box-shadow: 2px 4px 20px 0px rgba(255, 255, 255, 0.089);
+  border: 1px solid rgba(82, 82, 82, 0.5) !important;
+}
+.sub{
+  color: white;
+  background-color: black;
+  box-shadow: 2px 4px 20px 0px rgba(255, 255, 255, 0.089);
+  border: 1px solid rgba(82, 82, 82, 0.5) !important;
 }
 .sma {
   font-size: x-small;
@@ -24,8 +34,9 @@
   color: #fff;
 }
 .cards {
-  background: #fcd256; /* fallback for old browsers */
-  box-shadow: 2px 4px 5px rgba(128, 128, 128, 0.418);
+  box-shadow: 2px 4px 20px 0px rgba(255, 255, 255, 0.089);
+  border: 1px solid rgba(82, 82, 82, 0.5) !important;
+  color: white;
 }
 .modal {
   position: fixed;
@@ -69,7 +80,7 @@
   background: #fff;
   padding: 30px !important;
   border-radius: 5px;
-  width: 90%;
+  width: 600px;
   overflow-y: scroll;
   height: 500px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -86,4 +97,10 @@
   overflow: hidden;
  
  height: max-content;
+}
+
+@media screen and (max-width: 768px) {
+ .modal-content{
+  width: 90%;
+ }
 }

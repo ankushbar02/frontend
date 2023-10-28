@@ -7,7 +7,8 @@ const defaultStyle = {
   overflow: "hidden",
   resize: "none",
   width: "100%",
-  backgroundColor: "white",
+  backgroundColor: "black",
+  color:"white",
   borderRadius: "10px",
   padding: "20px",
 };
@@ -65,23 +66,24 @@ export default function Create(params) {
     <div className="container mt-5 d-flex justify-content-center align-items-center flex-column  ">
       <form className="col-md-8 col-12 create form " onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label text-light">
             Tittle
           </label>
           <input
-            type="text"
-            className="form-control"
+            type="text "
+            className="form-control text-light"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             value={tittle}
             onChange={(e) => {
               setTittle(e.target.value);
             }}
+            style={{ backgroundColor: "black", color: "white" }}
           />
           <div id="emailHelp" className="form-text"></div>
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
+          <label htmlFor="exampleInputPassword1" className="form-label text-light">
             Note
           </label>
           <textarea
@@ -94,7 +96,7 @@ export default function Create(params) {
             }}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn  sub">
           Submit
         </button>
       </form>

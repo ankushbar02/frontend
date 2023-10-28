@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import env from "react-dotenv";
-
+import "../../App.css"
 function SignUp() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
@@ -102,7 +102,7 @@ function SignUp() {
       style={{ height: "90vh" }}
       className=" container bod d-flex justify-content-center align-items-center"
     >
-      <form onSubmit={handleSubmit} className="card p-5 border-0 shadow-lg ">
+      <form style={{ backgroundColor: "black",color:"white" }} onSubmit={handleSubmit} className="card p-5  ">
         <div className="mb-2 d-flex justify-content-center">
           <h2>Sign Up</h2>
         </div>
@@ -125,6 +125,7 @@ function SignUp() {
             onChange={(e) => {
               setuserName(e.target.value);
             }}
+            style={{ backgroundColor: "black", color: "white" }}
           />
         </div>
         <div className="mb-3">
@@ -140,6 +141,7 @@ function SignUp() {
             onChange={(e) => {
               setpassword(e.target.value);
             }}
+            style={{ backgroundColor: "black", color: "white" }}
           />
         </div>
         <p className="email-center">

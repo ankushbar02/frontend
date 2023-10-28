@@ -128,10 +128,10 @@ export default function Read() {
 
       <div className="container px-4 py-5" id="featured-3">
         <div className="d-flex  mb-4 border-bottom justify-content-between">
-          <h2 className=" ">Notes</h2>
+          <h2 className=" text-light">Notes</h2>
           <div className="dropdown-center">
             <button
-              className="btn btn-secondary dropdown-toggle"
+              className="btn text-light btn-outline-dark  dropdown-toggle"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -171,12 +171,12 @@ export default function Read() {
                 <div className="card-body">
                   <div className=" d-flex flex-wrap justify-content-between border-bottom border-dark ">
                     <h6 className="pb-2 "> {ele.tittle}</h6>
-                    <small className="text-body-secondary sma">
+                    <small className="text-light-emphasis sma">
                       Created: {getDate(ele.createdAt)}
                     </small>
                   </div>
                   <p className="card-text note">
-                    <code className="fs-5">
+                    <code className="fs-5 text-light">
                       {ele.note.length < 200
                         ? ele.note
                         : ele.note.slice(0, 200) + "..."}
@@ -185,7 +185,7 @@ export default function Read() {
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
                       <button
-                        className="btn btn-primary"
+                        className="btn text-light  btn-outline-dark"
                         onClick={() => {
                           openModal();
                           seTtext(ele.note);
@@ -195,7 +195,7 @@ export default function Read() {
                         Read
                       </button>
                       <Link
-                        className="btn btn-light btn-outline-secondary"
+                        className="btn text-light  btn-outline-dark"
                         to={`/update/${ele._id}`}
                       >
                         <span className="material-symbols-outlined fs-6">
@@ -204,7 +204,7 @@ export default function Read() {
                       </Link>
                       <button
                         type="button"
-                        className="btn btn-danger    text-light btn-outline-secondary"
+                        className="btn  text-danger   btn-outline-dark"
                         onClick={() => handleDelete(ele._id)}
                       >
                         <span className="material-symbols-outlined fs-6">
@@ -212,7 +212,7 @@ export default function Read() {
                         </span>
                       </button>
                     </div>
-                    <small className="text-body-secondary sma">
+                    <small className="text-light-emphasis sma">
                       updated: {getDate(ele.updatedAt)}
                     </small>
                   </div>
@@ -220,7 +220,7 @@ export default function Read() {
               </div>
             </div>
           ))}
-          <Link to={"/create"} className="btn shadow-lg  btn-primary bot">
+          <Link to={"/create"} className="btn    bot">
             <span className=" material-symbols-outlined mt-3 ">add</span>
           </Link>
         </div>

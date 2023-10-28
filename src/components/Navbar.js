@@ -6,10 +6,10 @@ export default function Navbar() {
   const navigate = useNavigate();
   return (
     <nav
-      style={{ backgroundColor: "#fcd256" }}
-      className=" navbar nav navbar-expand-lg  "
+      style={{ backgroundColor: "black",color:"white" }}
+      className=" navbar border-bottom nav navbar-expand-lg  "
     >
-      <div className="container d-flex">
+      <div className="container  d-flex">
         <img
           onClick={() => {
             navigate("/readnotes");
@@ -19,11 +19,11 @@ export default function Navbar() {
           alt=""
         />
         <h3
-          role="button"
+          role="button "
           onClick={() => {
             navigate("/readnotes");
           }}
-          className="navbar-brand fs-4 fw-bolder pointer"
+          className="navbar-brand text-light fs-4 fw-bolder pointer"
         >
           Sticky Notes
         </h3>

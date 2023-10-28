@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import env from "react-dotenv";
+import "../../App.css";
 function Login() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState("");
@@ -9,13 +10,12 @@ function Login() {
   const navigate = useNavigate();
   const jwt = Cookies.get().jwt;
   const today = new Date();
-  
+
   const nextThreeDays = new Date(
     today.setDate(today.getDate() + 3)
   ).toUTCString();
   const emailPattern =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  
 
   useEffect(() => {
     if (jwt) {
@@ -69,7 +69,7 @@ function Login() {
         "Content-Type": "application/json",
         Origin: `${env.CLIENT_WEB}/`,
       },
-      
+
       body: JSON.stringify(data),
     });
     const result = await response.json();
@@ -108,7 +108,11 @@ function Login() {
       style={{ height: "90vh" }}
       className=" container  d-flex justify-content-center align-items-center"
     >
-      <form onSubmit={handleSubmit} className="card p-5 border-0 shadow-lg ">
+      <form
+        style={{ backgroundColor: "black", color: "white" }}
+        onSubmit={handleSubmit}
+        className="card p-5  "
+      >
         <div className="mb-2 d-flex justify-content-center">
           <h2>Login</h2>
         </div>
@@ -131,6 +135,7 @@ function Login() {
             onChange={(e) => {
               setuserName(e.target.value);
             }}
+            style={{ backgroundColor: "black", color: "white" }}
           />
         </div>
         <div className="mb-3">
@@ -146,6 +151,7 @@ function Login() {
             onChange={(e) => {
               setpassword(e.target.value);
             }}
+            style={{ backgroundColor: "black", color: "white" }}
           />
         </div>
         <p className="text-center">

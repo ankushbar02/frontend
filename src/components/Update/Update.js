@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import env from "react-dotenv";
+import "../Read/Read.css"
 const defaultStyle = {
   display: "block",
   overflow: "hidden",
   resize: "none",
   width: "100%",
-  backgroundColor: "white",
+  backgroundColor: "black",
+  color:"white",
   borderRadius: "10px",
   padding: "20px",
 };
@@ -95,21 +97,22 @@ export default function Update() {
       {error && <div className="alert alert-danger fixed-bottom">{error}</div>}
       <form className="col-md-8 col-12 form" onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label text-light">
             Title
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control "
             id="exampleInputEmail1"
             value={tittle}
             onChange={(e) => {
               setTittle(e.target.value);
             }}
+            style={{ backgroundColor: "black", color: "white" }}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInput" className="form-label">
+          <label htmlFor="exampleInput" className="form-label text-light">
             Note
           </label>
           <textarea
@@ -119,11 +122,12 @@ export default function Update() {
             value={note}
             onChange={(e) => {
               setNote(e.target.value);
+              
             }}
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit " className="btn  sub">
           Submit
         </button>
       </form>
