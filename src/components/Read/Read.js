@@ -58,7 +58,7 @@ export default function Read() {
       setTimeout(() => {
         setError("");
         getData();
-      }, 500);
+      }, 1000);
     } catch (error) {
       setError(error.message);
     }
@@ -172,104 +172,111 @@ export default function Read() {
         )}
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-          {!isMounted
-            ? codeArray.map((_, index) => (
-                <div key={index} className="col opacity-100">
-                  <div className="cards p-3 rounded-3 mb-2">
-                    <div className="card-body">
-                      <div className="d-flex flex-wrap justify-content-between border-bottom border-dark">
+          {!isMounted ? (
+            codeArray.map((_, index) => (
+              <div key={index} className="col opacity-100">
+                <div className="cards p-3 rounded-3 mb-2">
+                  <div className="card-body">
+                    <div className="d-flex flex-wrap justify-content-between border-bottom border-dark">
+                      <div
+                        style={{ width: "60%" }}
+                        className="skeleton skeleton-text skeleton-text__body"
+                      ></div>
+                      <small
+                        style={{ width: "30%" }}
+                        className="text-light-emphasis sma"
+                      >
+                        <div className="skeleton skeleton-text skeleton-text__body"></div>
+                      </small>
+                    </div>
+                    <div className="card-text note">
+                      <code className="fs-5 description">
+                        <div className="skeleton skeleton-text skeleton-text__body"></div>
+                        <div className="skeleton skeleton-text skeleton-text__body"></div>
                         <div
-                          style={{ width: "60%" }}
+                          style={{ width: "40%" }}
                           className="skeleton skeleton-text skeleton-text__body"
                         ></div>
-                        <small
-                          style={{ width: "30%" }}
-                          className="text-light-emphasis sma"
+                      </code>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <small
+                        style={{ width: "100px" }}
+                        className="text-light-emphasis sma skeleton skeleton-text skeleton-text__body"
+                      ></small>
+                      <small
+                        style={{ width: "30%" }}
+                        className="text-light-emphasis sma skeleton skeleton-text skeleton-text__body"
+                      ></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : data.length === 0 ? (
+            <h1 className="mt-5 pt-5 px-5 mx-auto my-auto">
+              Create Notes{" "}
+              <span className="material-symbols-outlined">edit_square</span>
+            </h1>
+          ) : (
+            data.map((ele) => (
+              <div key={ele._id} className="col  opacity-100 ">
+                <div className=" cards p-3 rounded-3 mb-2">
+                  <div className="card-body">
+                    <div className=" d-flex flex-wrap justify-content-between border-bottom border-dark ">
+                      <h6 className="pb-2 "> {ele.tittle}</h6>
+                      <small className="text-light-emphasis sma">
+                        Created: {getDate(ele.createdAt)}
+                      </small>
+                    </div>
+                    <p className="card-text note">
+                      <code className="fs-5 description">
+                        {ele.note.length < 200
+                          ? ele.note
+                          : ele.note.slice(0, 100) + "..."}
+                      </code>
+                    </p>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="btn-group">
+                        <button
+                          className="btn text-light  btn-outline-dark"
+                          onClick={() => {
+                            openModal();
+                            seTtext(ele.note);
+                            setHead(ele.tittle);
+                          }}
                         >
-                          <div className="skeleton skeleton-text skeleton-text__body"></div>
-                        </small>
+                          <span className="material-symbols-outlined span-icon span-icon-read ">
+                            notes
+                          </span>
+                        </button>
+                        <Link
+                          className="btn text-light  btn-outline-dark"
+                          to={`/update/${ele._id}`}
+                        >
+                          <span className="material-symbols-outlined span-icon span-icon-edit">
+                            edit_note
+                          </span>
+                        </Link>
+                        <button
+                          type="button"
+                          className="btn  text-danger   btn-outline-dark"
+                          onClick={() => handleDelete(ele._id)}
+                        >
+                          <span className="material-symbols-outlined span-icon span-icon-delete">
+                            delete_sweep
+                          </span>
+                        </button>
                       </div>
-                      <div className="card-text note">
-                        <code className="fs-5 description">
-                          <div className="skeleton skeleton-text skeleton-text__body"></div>
-                          <div className="skeleton skeleton-text skeleton-text__body"></div>
-                          <div
-                            style={{ width: "40%" }}
-                            className="skeleton skeleton-text skeleton-text__body"
-                          ></div>
-                        </code>
-                      </div>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <small
-                          style={{ width: "100px" }}
-                          className="text-light-emphasis sma skeleton skeleton-text skeleton-text__body"
-                        ></small>
-                        <small
-                          style={{ width: "30%" }}
-                          className="text-light-emphasis sma skeleton skeleton-text skeleton-text__body"
-                        ></small>
-                      </div>
+                      <small className="text-light-emphasis sma">
+                        updated: {getDate(ele.updatedAt)}
+                      </small>
                     </div>
                   </div>
                 </div>
-              ))
-            : data.map((ele) => (
-                <div key={ele._id} className="col  opacity-100 ">
-                  <div className=" cards p-3 rounded-3 mb-2">
-                    <div className="card-body">
-                      <div className=" d-flex flex-wrap justify-content-between border-bottom border-dark ">
-                        <h6 className="pb-2 "> {ele.tittle}</h6>
-                        <small className="text-light-emphasis sma">
-                          Created: {getDate(ele.createdAt)}
-                        </small>
-                      </div>
-                      <p className="card-text note">
-                        <code className="fs-5 description">
-                          {ele.note.length < 200
-                            ? ele.note
-                            : ele.note.slice(0, 200) + "..."}
-                        </code>
-                      </p>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <div className="btn-group">
-                          <button
-                            className="btn text-light  btn-outline-dark"
-                            onClick={() => {
-                              openModal();
-                              seTtext(ele.note);
-                              setHead(ele.tittle);
-                            }}
-                          >
-                            <span className="material-symbols-outlined span-icon span-icon-read ">
-                              notes
-                            </span>
-                          </button>
-                          <Link
-                            className="btn text-light  btn-outline-dark"
-                            to={`/update/${ele._id}`}
-                          >
-                            <span className="material-symbols-outlined span-icon span-icon-edit">
-                              edit_note
-                            </span>
-                          </Link>
-                          <button
-                            type="button"
-                            className="btn  text-danger   btn-outline-dark"
-                            onClick={() => handleDelete(ele._id)}
-                          >
-                            <span className="material-symbols-outlined span-icon span-icon-delete">
-                              delete_sweep
-                            </span>
-                          </button>
-                        </div>
-                        <small className="text-light-emphasis sma">
-                          updated: {getDate(ele.updatedAt)}
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              </div>
+            ))
+          )}
           <Link to={"/create"} className="btn    bot">
             <span className=" material-symbols-outlined mt-3 ">add</span>
           </Link>

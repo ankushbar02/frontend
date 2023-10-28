@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import env from "react-dotenv";
 import Cookies from "js-cookie";
-import "../Read/Read.css"
+import "../Read/Read.css";
 const defaultStyle = {
   display: "block",
   overflow: "hidden",
   resize: "none",
   width: "100%",
   backgroundColor: "black",
-  color:"white",
+  color: "white",
   borderRadius: "10px",
   padding: "20px",
 };
@@ -36,9 +36,14 @@ export default function Create(params) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!tittle || !note) {
+
+    if (!note) {
       setError("Please create a note");
       return;
+    }
+
+    if (!tittle || tittle.length === 0) {
+     data.tittle="Untitled"
     }
 
     const response = await fetch(`${env.BACKEND_WEB}/createnote`, {
@@ -64,8 +69,8 @@ export default function Create(params) {
   };
 
   return (
-    <div className="container read mt-5 d-flex justify-content-center align-items-center flex-column  ">
-      <form className="col-md-8 col-12 create form " onSubmit={handleSubmit}>
+    <div className="container  mt-5 d-flex justify-content-center align-items-center flex-column  ">
+      <form className="col-lg-8 col-12 create form " onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label text-light">
             Tittle
@@ -84,7 +89,10 @@ export default function Create(params) {
           <div id="emailHelp" className="form-text"></div>
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label text-light">
+          <label
+            htmlFor="exampleInputPassword1"
+            className="form-label text-light"
+          >
             Note
           </label>
           <textarea
@@ -97,7 +105,7 @@ export default function Create(params) {
             }}
           />
         </div>
-        <button type="submit" className="btn  sub">
+        <button type="submit" className="btn mb-5   sub">
           Submit
         </button>
       </form>
