@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import env from "react-dotenv";
 import Cookies from "js-cookie";
+import "../Read/Read.css"
 const defaultStyle = {
   display: "block",
   overflow: "hidden",
@@ -63,7 +64,7 @@ export default function Create(params) {
   };
 
   return (
-    <div className="container mt-5 d-flex justify-content-center align-items-center flex-column  ">
+    <div className="container read mt-5 d-flex justify-content-center align-items-center flex-column  ">
       <form className="col-md-8 col-12 create form " onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label text-light">

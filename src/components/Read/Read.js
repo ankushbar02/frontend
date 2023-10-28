@@ -123,7 +123,7 @@ export default function Read() {
   };
 
   return (
-    <div className="">
+    <div className="read">
       {error && <div className="alert alert-danger fixed-bottom">{error}</div>}
 
       <div className="container px-4 py-5" id="featured-3">
@@ -158,7 +158,7 @@ export default function Read() {
               <span className="close btn btn-dark" onClick={closeModal}>
                 &times;
               </span>
-              <h2>{head}</h2>
+              <h2 className="border-bottom pb-3">{head}</h2>
               <p>{text}</p>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function Read() {
                     </small>
                   </div>
                   <p className="card-text note">
-                    <code className="fs-5 text-light">
+                    <code className="fs-5 description">
                       {ele.note.length < 200
                         ? ele.note
                         : ele.note.slice(0, 200) + "..."}
@@ -192,14 +192,16 @@ export default function Read() {
                           setHead(ele.tittle);
                         }}
                       >
-                        Read
+                        <span className="material-symbols-outlined span-icon span-icon-read ">
+                          notes
+                        </span>
                       </button>
                       <Link
                         className="btn text-light  btn-outline-dark"
                         to={`/update/${ele._id}`}
                       >
-                        <span className="material-symbols-outlined fs-6">
-                          edit
+                        <span className="material-symbols-outlined span-icon span-icon-edit">
+                          edit_note
                         </span>
                       </Link>
                       <button
@@ -207,8 +209,8 @@ export default function Read() {
                         className="btn  text-danger   btn-outline-dark"
                         onClick={() => handleDelete(ele._id)}
                       >
-                        <span className="material-symbols-outlined fs-6">
-                          delete
+                        <span className="material-symbols-outlined span-icon span-icon-delete">
+                          delete_sweep
                         </span>
                       </button>
                     </div>

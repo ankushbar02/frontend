@@ -3,20 +3,27 @@
   overflow-y: scroll;
   
 }
-.nav {
-}
+
 ::-webkit-scrollbar {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
-  .App {
-    height: max-content;
-  }
+.span-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card{
   box-shadow: 11px 8px 22px 0px rgba(255, 255, 255, 0.089);
   border: 1px solid rgba(255, 255, 255, 0.247) !important;
 
+}
+
+.span-icon-read{
+  color: yellow;
+}
+
+.span-icon-edit{
+  color: rgb(10, 186, 218);
 }
