@@ -42,6 +42,7 @@ export default function Read() {
   };
 
   const handleDelete = async (id) => {
+    setIsMounted(false);
     try {
       const response = await fetch(`${env.BACKEND_WEB}/delete/${id}`, {
         method: "DELETE",
@@ -58,6 +59,7 @@ export default function Read() {
       setTimeout(() => {
         setError("");
         getData();
+        setIsMounted(true);
       }, 1000);
     } catch (error) {
       setError(error.message);
